@@ -1,17 +1,14 @@
-// ----------Importation pour gestion de l'Object Relation Mapping--------------
-import { Animationsrequested } from 'src/animationsrequested/entities/animationsrequested.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Animationsrequested } from 'src/animationsrequested/entities/animationsrequested.entity';
 
-//---------------------Constitution de la table Location---------------------
 @Entity()
-export class locations {
+export class Location {
   @PrimaryGeneratedColumn()
   id?: number;
 
   @Column({ nullable: false, type: 'varchar', length: 255 })
-  village_names: string;
+  village_name: string;
 
   @OneToMany(() => Animationsrequested, (animation) => animation.location)
   animationsrequested: Animationsrequested[];
 }
-//-----------------------------------------------------------------------------

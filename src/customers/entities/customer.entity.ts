@@ -1,8 +1,9 @@
 // ----------Importation pour gestion de l'Object Relation Mapping--------------
-import { Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Animationsrequested } from 'src/animationsrequested/entities/animationsrequested.entity';
 
 //---------------------Constitution de la table Customer---------------------
+@Entity()
 export class Customer {
   @PrimaryGeneratedColumn()
   id?: number;
@@ -16,14 +17,14 @@ export class Customer {
   @Column({ nullable: false, type: 'varchar', length: 255 })
   adress: string;
 
-  @Column({ nullable: false, type: 'number' })
+  @Column({ nullable: false, type: 'int' })
   postal_code: number;
 
   @Column({ nullable: false, type: 'varchar', length: 150 })
   city: string;
 
-  @Column({ nullable: false, type: 'number' })
-  phone: number;
+  @Column({ nullable: false, type: 'char', length: 10 })
+  phone: string;
 
   @Column({ nullable: false, type: 'varchar', length: 255 })
   email: string;

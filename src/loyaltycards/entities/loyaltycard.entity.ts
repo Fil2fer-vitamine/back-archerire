@@ -13,10 +13,10 @@ export class Loyaltycard {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ nullable: false, type: 'number' })
+  @Column({ nullable: false, type: 'int' })
   card_number: number;
 
-  @Column({ nullable: true, type: 'number' })
+  @Column({ nullable: true, type: 'int' })
   number_of_points: number;
 
   // ----------------------Mise en place de l'ORM via TypeORM-----------------------
