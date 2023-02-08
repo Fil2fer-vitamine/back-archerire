@@ -1,1 +1,3 @@
-export class CreateLocationDto {}
+export class CreateLocationDto {
+    readonly village_name: string;
+}
