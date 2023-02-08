@@ -75,5 +75,8 @@ Nest is [MIT licensed](LICENSE).
 Installation de typeorm pour postgres
 npm i typeorm @nestjs/typeorm pg
 
+Installation de class-validator permettant de formatter les valeurs saisies par l'utilisateur au niveau des DTO :
+npm i @nestjs/class-validator
+
 Installation de JSONWEBTOKEN
 npm i --save @nestjs/jwt
