@@ -1,5 +1,7 @@
 // ----------Importation pour gestion de l'Object Relation Mapping--------------
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Customer } from 'src/customers/entities/customer.entity';
+import { locations } from 'src/locations/entities/location.entity';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 //-------------------Constitution de la table Animationsrequested---------------
 @Entity()
@@ -31,7 +33,10 @@ export class Animationsrequested {
   @Column({ nullable: true, type: 'varchar', length: 255 })
   negociation: string;
 
-  @Column()
-  send_response_to_customer: boolean;
+  @ManyToOne(() => Customer, (customer) => customer.animationsrequested)
+  customer: Customer;
+
+  @ManyToOne(() => locations, (location) => location.animationsrequested)
+  location: locations;
 }
 //-----------------------------------------------------------------------------
