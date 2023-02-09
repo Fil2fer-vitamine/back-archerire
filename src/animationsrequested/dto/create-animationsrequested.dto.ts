@@ -5,7 +5,7 @@ import {
   IsNotEmpty,
   IsBoolean,
   IsString,
-} from '@nestjs/class-validator/types/decorator/decorators';
+} from '@nestjs/class-validator';
 
 export class CreateAnimationsrequestedDto {
   //--------------------- DATE - Formattage par le biais de class-validator---------------
