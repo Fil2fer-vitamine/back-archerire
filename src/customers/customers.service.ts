@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -11,24 +11,43 @@ export class CustomersService {
     @InjectRepository(Customer)
     private customerRepository: Repository<Customer>,
   ) {}
-  
-  create(createCustomerDto: CreateCustomerDto) {
-    return 'This action adds a new customer';
+
+  async create(createCustomerDto: CreateCustomerDto) {
+    return await this.customerRepository.save(createCustomerDto);
   }
 
-  findAll() {
-    return `This action returns all customers`;
+  async findAll(): Promise<Customer[]> {
+    return await this.customerRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} customer`;
+  async findOne(idValue: number): Promise<Customer> {
+    const customerfound = await this.customerRepository.findOneBy({
+      id: idValue,
+    });
+    if (!customerfound) {
+      throw new NotFoundException(
+        `Désolé, nous n'avons pas trouvé de client avec l'id ${idValue}.`,
+      );
+    }
+    return customerfound;
   }
 
-  update(id: number, updateCustomerDto: UpdateCustomerDto) {
-    return `This action updates a #${id} customer`;
+  async update(
+    id: number,
+    updateCustomerDto: UpdateCustomerDto,
+  ): Promise<Customer> {
+    const upCustomer = await this.findOne(id);
+    upCustomer.email = updateCustomerDto.email;
+    return await this.customerRepository.save(upCustomer);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} customer`;
+  async remove(id: number): Promise<string> {
+    const Result = await this.customerRepository.delete({ id });
+    if (Result.affected === 0) {
+      throw new NotFoundException(
+        `Suppression impossible, car il n'y a pas d'adresse mail avec l'id ${id}`,
+      );
+    }
+    return `Bravo: L'adresse mail avec l'id ${id} a bien été supprimée...`;
   }
 }
