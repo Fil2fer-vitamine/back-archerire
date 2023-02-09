@@ -36,7 +36,7 @@ export class UpdateAnimationsrequestedDto extends PartialType(
   })
   @MaxLength(12, {
     message:
-      "Le groupe est limité à douze personnes - Merci de contacter l'administrateur pour un groupe de participants supérieur à 12.",
+      "Le groupe est limité à douze personnes - Merci de contacter (par mail ou téléphone) l'administrateur pour un groupe de participants supérieur à 12 personnes.",
   })
   number_of_participants: number;
 
