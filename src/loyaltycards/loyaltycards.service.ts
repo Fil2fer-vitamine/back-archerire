@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateLoyaltycardDto } from './dto/create-loyaltycard.dto';
@@ -12,23 +12,37 @@ export class LoyaltycardsService {
     private loyaltycardRepository: Repository<Loyaltycard>,
   ) {}
   
-  create(createLoyaltycardDto: CreateLoyaltycardDto) {
-    return 'This action adds a new loyaltycard';
+  async create(createLoyaltycardDto: CreateLoyaltycardDto) {
+    return await this.loyaltycardRepository.save(createLoyaltycardDto);
   }
 
-  findAll() {
-    return `This action returns all loyaltycards`;
+  async findAll(): Promise<Loyaltycard[]> {
+    return await this.loyaltycardRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} loyaltycard`;
+  async findOne(idValue: number):Promise<Loyaltycard> {
+    const loyaltycardsfound = await this.loyaltycardRepository.findOneBy({
+      id:idValue,
+  });
+  if (!loyaltycardsfound) {
+    throw new NotFoundException(`Désolé, nous n'avons pas trouvé de carte de fidélité avec l'id ¤{idValue}`)
+  }
+  return loyaltycardsfound;
+}
+
+  async update(id: number, updateLoyaltycardDto: UpdateLoyaltycardDto): Promise<Loyaltycard> {
+    const upLoyaltycard = await this.findOne(id);
+    upLoyaltycard.card_number = updateLoyaltycardDto.card_number;
+    return await this.loyaltycardRepository.save(upLoyaltycard);
   }
 
-  update(id: number, updateLoyaltycardDto: UpdateLoyaltycardDto) {
-    return `This action updates a #${id} loyaltycard`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} loyaltycard`;
+  async remove(id: number): Promise<string> {
+    const Result = await this.loyaltycardRepository.delete({ id });
+    if (Result.affected === 0) {
+      throw new NotFoundException(
+        `Suppression impossible, car il n'y a pas de catégorie avec l'id ${id}`,
+      );
+    }
+    return `Bravo: La carte avec l'id ${id} a bien été supprimée...`;
   }
 }
