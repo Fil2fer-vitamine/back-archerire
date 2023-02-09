@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { NotFoundError } from 'rxjs';
 import { Repository } from 'typeorm';
 import { CreateAnimationsrequestedDto } from './dto/create-animationsrequested.dto';
 import { UpdateAnimationsrequestedDto } from './dto/update-animationsrequested.dto';
@@ -11,27 +12,46 @@ export class AnimationsrequestedService {
     @InjectRepository(Animationsrequested)
     private animationrequestedRepository: Repository<Animationsrequested>,
   ) {}
-  
-  create(createAnimationsrequestedDto: CreateAnimationsrequestedDto) {
-    return 'This action adds a new animationsrequested';
+
+  async create(createAnimationsrequestedDto: CreateAnimationsrequestedDto) {
+    return await this.animationrequestedRepository.save(
+      createAnimationsrequestedDto,
+    );
   }
 
-  findAll() {
-    return `This action returns all animationsrequested`;
+  async findAll(): Promise<Animationsrequested[]> {
+    return await this.animationrequestedRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} animationsrequested`;
+  async findOne(idValue: number): Promise<Animationsrequested> {
+    const animationfound = await this.animationrequestedRepository.findOneBy({
+      id: idValue,
+    });
+    if (!animationfound) {
+      throw new NotFoundException(
+        `Déolé, nous n'avons pas trouvé d'animation demandée avec l'id ${idValue}.`,
+      );
+    }
+    return animationfound;
   }
 
-  update(
+  async update(
     id: number,
     updateAnimationsrequestedDto: UpdateAnimationsrequestedDto,
-  ) {
-    return `This action updates a #${id} animationsrequested`;
+  ): Promise<Animationsrequested> {
+    const upAnimation = await this.findOne(id);
+    upAnimation.kind_of_animation =
+      updateAnimationsrequestedDto.kind_of_animation;
+    return await this.animationrequestedRepository.save(upAnimation);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} animationsrequested`;
+  async remove(id: number): Promise<string> {
+    const Result = await this.animationrequestedRepository.delete({ id });
+    if (Result.affected === 0) {
+      throw new NotFoundException(
+        `Suppreesion impossible, car il n'y a pas d'animation demandée avec l'id ${id}`,
+      );
+    }
+    return `Bravo: La catégorie avec l'id ${id} a bien été supprimée...`;
   }
 }

@@ -15,7 +15,7 @@ export class Animationsrequested {
   id?: number;
 
   @Column({ nullable: false, type: 'date' })
-  date: string;
+  date: Date;
 
   @Column({ nullable: false, type: 'varchar', length: 100 })
   kind_of_animation: string;
