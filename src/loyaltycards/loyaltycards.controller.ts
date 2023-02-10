@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { LoyaltycardsService } from './loyaltycards.service';
 import { CreateLoyaltycardDto } from './dto/create-loyaltycard.dto';
 import { UpdateLoyaltycardDto } from './dto/update-loyaltycard.dto';
@@ -18,17 +26,20 @@ export class LoyaltycardsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.loyaltycardsService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLoyaltycardDto: UpdateLoyaltycardDto) {
+  update(
+    @Param('id') id: number,
+    @Body() updateLoyaltycardDto: UpdateLoyaltycardDto,
+  ) {
     return this.loyaltycardsService.update(+id, updateLoyaltycardDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.loyaltycardsService.remove(+id);
   }
 }

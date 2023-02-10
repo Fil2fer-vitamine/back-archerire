@@ -12,12 +12,12 @@ export class UpdateAnimationsrequestedDto extends PartialType(
   CreateAnimationsrequestedDto,
 ) {
   //--------------------- DATE - Formattage par le biais de class-validator---------------
-  @IsDate({ message: "La date de l'animation doit être une date valide" })
-  @IsNotEmpty({
-    message:
-      "Vous avez demandé à réserver une animation, il nous faudra cependant une date, s'il vous plait.",
-  })
-  date: Date;
+  // @IsDate({ message: "La date de l'animation doit être une date valide" })
+  // @IsNotEmpty({
+  //   message:
+  //     "Vous avez demandé à réserver une animation, il nous faudra cependant une date, s'il vous plait.",
+  // })
+  date: string;
 
   //------------ KIND_of_ANIMATION - Formattage par le biais de class-validator---------------
   @IsNotEmpty({ message: "Merci de saisir une sorte d'animation." })

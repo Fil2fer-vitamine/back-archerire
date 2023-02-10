@@ -80,3 +80,6 @@ npm i @nestjs/class-validator
 
 Installation de JSONWEBTOKEN
 npm i --save @nestjs/jwt
+
+Mettre des chaines de caractères dans mon id
+npm install uuid

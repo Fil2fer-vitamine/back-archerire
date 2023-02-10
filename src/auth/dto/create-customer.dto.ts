@@ -4,6 +4,7 @@ import {
   IsNumber,
   IsPositive,
   IsString,
+  Matches,
   MaxLength,
   MinLength,
 } from '@nestjs/class-validator';
@@ -84,4 +85,16 @@ export class CreateCustomerDto {
       "Votre saisie pour l'adresse mail ne semble pas correspondre : merci de mettre une adresse mail valide.",
   })
   email: string;
+
+  //------------ PASSWORD - Formattage par le biais de class-validator---------------
+  @IsNotEmpty({ message: ' Le mot de passe ne peux pas être vide' })
+  @IsString({ message: 'Le mot de passe doit être une chaine de caractère' })
+  @MinLength(8, {
+    message: 'Le mot de passe doit contenir au moins 8 caractères',
+  })
+  @Matches(/^(?=.[A-Z])(?=.[a-z])(?=.[0-9])/, {
+    message:
+      '*Le mot de passe doit contenir une Majuscule, une minuscule et un nombre',
+  })
+  password: string;
 }

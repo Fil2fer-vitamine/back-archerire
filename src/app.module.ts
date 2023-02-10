@@ -12,6 +12,7 @@ import { Loyaltycard } from './loyaltycards/entities/loyaltycard.entity';
 import { Customer } from './customers/entities/customer.entity';
 import { Animationsrequested } from './animationsrequested/entities/animationsrequested.entity';
 import { Location } from './locations/entities/location.entity';
+import { AuthModule } from './auth/auth.module';
 
 dotenv.config({ path: '.env' });
 
@@ -33,6 +34,7 @@ dotenv.config({ path: '.env' });
     CustomersModule,
     AnimationsrequestedModule,
     LocationsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

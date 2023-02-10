@@ -5,7 +5,9 @@ import { UpdateAnimationsrequestedDto } from './dto/update-animationsrequested.d
 
 @Controller('animationsrequested')
 export class AnimationsrequestedController {
-  constructor(private readonly animationsrequestedService: AnimationsrequestedService) {}
+  constructor(
+    private readonly animationsrequestedService: AnimationsrequestedService,
+  ) {}
 
   @Post()
   create(@Body() createAnimationsrequestedDto: CreateAnimationsrequestedDto) {
@@ -18,17 +20,23 @@ export class AnimationsrequestedController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.animationsrequestedService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAnimationsrequestedDto: UpdateAnimationsrequestedDto) {
-    return this.animationsrequestedService.update(+id, updateAnimationsrequestedDto);
+  update(
+    @Param('id') id: number,
+    @Body() updateAnimationsrequestedDto: UpdateAnimationsrequestedDto,
+  ) {
+    return this.animationsrequestedService.update(
+      +id,
+      updateAnimationsrequestedDto,
+    );
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.animationsrequestedService.remove(+id);
   }
 }

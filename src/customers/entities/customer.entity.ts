@@ -5,33 +5,39 @@ import { Animationsrequested } from 'src/animationsrequested/entities/animations
 //---------------------Constitution de la table Customer---------------------
 @Entity()
 export class Customer {
-  @PrimaryGeneratedColumn()
-  id?: number;
+  @PrimaryGeneratedColumn('uuid')
+  id?: string;
 
-  @Column({ nullable: false, type: 'varchar', length: 150 })
+  @Column({ nullable: false, unique: true })
   name: string;
 
-  @Column({ nullable: false, type: 'varchar', length: 150 })
+  @Column({ nullable: false, unique: true })
   firstname: string;
 
-  @Column({ nullable: false, type: 'varchar', length: 255 })
+  @Column({ nullable: false })
   adress: string;
 
-  @Column({ nullable: false, type: 'int' })
+  @Column({ nullable: false })
   postal_code: number;
 
-  @Column({ nullable: false, type: 'varchar', length: 150 })
+  @Column({ nullable: false })
   city: string;
 
-  @Column({ nullable: false, type: 'char', length: 10 })
+  @Column({ nullable: false })
   phone: string;
 
-  @Column({ nullable: false, type: 'varchar', length: 255 })
+  @Column({ nullable: false, unique: true })
   email: string;
+
+  @Column({ nullable: false })
+  password: string;
 
   // ----------------------Mise en place de l'ORM via TypeORM-----------------------
   // ------Relation OneToMany entre les tables animationrequested ET customer-------
-  @OneToMany(() => Animationsrequested, (animation) => animation.customer)
+  @OneToMany(() => Animationsrequested, (animation) => animation.customer, {
+    onDelete: 'CASCADE',
+    eager: true,
+  })
   animationsrequested: Animationsrequested[];
 }
 //-----------------------------------------------------------------------------

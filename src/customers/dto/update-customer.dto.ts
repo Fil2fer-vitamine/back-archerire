@@ -8,7 +8,7 @@ import {
   IsEmail,
 } from '@nestjs/class-validator';
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateCustomerDto } from './create-customer.dto';
+import { CreateCustomerDto } from '../../auth/dto/create-customer.dto';
 
 export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {
   //------------ NAME - Formattage par le biais de class-validator---------------

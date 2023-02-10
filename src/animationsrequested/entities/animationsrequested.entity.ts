@@ -14,8 +14,8 @@ export class Animationsrequested {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ nullable: false, type: 'date' })
-  date: Date;
+  @Column({ nullable: true, type: 'date' })
+  date: string;
 
   @Column({ nullable: false, type: 'varchar', length: 100 })
   kind_of_animation: string;

@@ -11,7 +11,7 @@ export class LoyaltycardsService {
     @InjectRepository(Loyaltycard)
     private loyaltycardRepository: Repository<Loyaltycard>,
   ) {}
-  
+
   async create(createLoyaltycardDto: CreateLoyaltycardDto) {
     return await this.loyaltycardRepository.save(createLoyaltycardDto);
   }
@@ -20,17 +20,22 @@ export class LoyaltycardsService {
     return await this.loyaltycardRepository.find();
   }
 
-  async findOne(idValue: number):Promise<Loyaltycard> {
+  async findOne(idValue: number): Promise<Loyaltycard> {
     const loyaltycardsfound = await this.loyaltycardRepository.findOneBy({
-      id:idValue,
-  });
-  if (!loyaltycardsfound) {
-    throw new NotFoundException(`Désolé, nous n'avons pas trouvé de carte de fidélité avec l'id ¤{idValue}`)
+      id: idValue,
+    });
+    if (!loyaltycardsfound) {
+      throw new NotFoundException(
+        `Désolé, nous n'avons pas trouvé de carte de fidélité avec l'id ${idValue}`,
+      );
+    }
+    return loyaltycardsfound;
   }
-  return loyaltycardsfound;
-}
 
-  async update(id: number, updateLoyaltycardDto: UpdateLoyaltycardDto): Promise<Loyaltycard> {
+  async update(
+    id: number,
+    updateLoyaltycardDto: UpdateLoyaltycardDto,
+  ): Promise<Loyaltycard> {
     const upLoyaltycard = await this.findOne(id);
     upLoyaltycard.card_number = updateLoyaltycardDto.card_number;
     return await this.loyaltycardRepository.save(upLoyaltycard);
