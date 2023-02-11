@@ -10,7 +10,7 @@ import {
 export class LoginCustomerDto {
   // Nous ne gardons que ce qui nous est indispensable pour s'identifier : à savoir  l'adresse mail et le mot de passe.
 
-  //------------ E.MAIL - Formattage par le biais de class-validator---------------
+  //------------ E.MAIL - Formatage par le biais de class-validator---------------
   @IsNotEmpty({
     message: "Merci de saisir votre adresse mail, s'il vous plait.",
   })
@@ -20,7 +20,7 @@ export class LoginCustomerDto {
   })
   email: string;
 
-  //------------ PASSWORD - Formattage par le biais de class-validator---------------
+  //------------ PASSWORD - Formatage par le biais de class-validator---------------
   @IsNotEmpty({ message: ' Le mot de passe ne peux pas être vide' })
   @IsString({ message: 'Le mot de passe doit être une chaine de caractère' })
   @MinLength(8, {
