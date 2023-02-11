@@ -4,7 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoyaltycardsModule } from './loyaltycards/loyaltycards.module';
 import { CustomersModule } from './customers/customers.module';
-import { AnimationsrequestedModule } from './animationsrequested/animationsrequested.module';
+// import { AnimationsrequestedModule } from './animationsrequested/animationsrequested.module';
 import { LocationsModule } from './locations/locations.module';
 import * as dotenv from 'dotenv';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -32,7 +32,7 @@ dotenv.config({ path: '.env' });
     }),
     LoyaltycardsModule,
     CustomersModule,
-    AnimationsrequestedModule,
+    // AnimationsrequestedModule,
     LocationsModule,
     AuthModule,
   ],

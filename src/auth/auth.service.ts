@@ -2,31 +2,34 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Customer } from 'src/customers/entities/customer.entity';
 import { CreateCustomerDto } from './dto/create-customer.dto';
+import { LoginCustomerDto } from './dto/login-customer.dto';
 
+//------------------------Authentification-----------------------------------
 @Injectable()
 export class AuthService {
-  customerRepository: any;
+  jwtService: any;
   constructor(
     @InjectRepository(Customer)
-    private userRepository: Repository<Customer>,
+    private customerRepository: Repository<Customer>,
   ) {}
 
   async registerCustomer(createCustomerDto: CreateCustomerDto) {
     const {
       name,
-      password,
       firstname,
       adress,
       postal_code,
       city,
       phone,
       email,
+      password,
     } = createCustomerDto;
 
     // hashage du mot de passe
@@ -36,13 +39,13 @@ export class AuthService {
     // création d'une entité user
     const customer = await this.customerRepository.create({
       name,
-      password: hashedPassword,
       firstname,
       adress,
       postal_code,
       city,
       phone,
       email,
+      password: hashedPassword,
     });
 
     try {
@@ -56,6 +59,18 @@ export class AuthService {
       } else {
         throw new InternalServerErrorException();
       }
+    }
+  }
+  async loginCustomer(loginCustomerDto: LoginCustomerDto) {
+    const { email, password } = loginCustomerDto;
+    const customer = await this.customerRepository.findOneBy({ email });
+
+    if (customer && (await bcrypt.compare(password, customer.password))) {
+      const payload = { customer };
+      const accessToken = await this.jwtService.sign(payload);
+      return { accessToken };
+    } else {
+      throw new UnauthorizedException('Ces identifiants ne sont pas bons...');
     }
   }
 }

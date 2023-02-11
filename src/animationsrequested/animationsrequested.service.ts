@@ -23,7 +23,7 @@ export class AnimationsrequestedService {
     return await this.animationrequestedRepository.find();
   }
 
-  async findOne(idValue: number): Promise<Animationsrequested> {
+  async findOne(idValue: string): Promise<Animationsrequested> {
     const animationfound = await this.animationrequestedRepository.findOneBy({
       id: idValue,
     });
@@ -36,22 +36,22 @@ export class AnimationsrequestedService {
   }
 
   async update(
-    id: number,
+    idValue: string,
     updateAnimationsrequestedDto: UpdateAnimationsrequestedDto,
   ): Promise<Animationsrequested> {
-    const upAnimation = await this.findOne(id);
+    const upAnimation = await this.findOne(idValue);
     upAnimation.kind_of_animation =
       updateAnimationsrequestedDto.kind_of_animation;
     return await this.animationrequestedRepository.save(upAnimation);
   }
 
-  async remove(id: number): Promise<string> {
-    const Result = await this.animationrequestedRepository.delete({ id });
-    if (Result.affected === 0) {
-      throw new NotFoundException(
-        `Suppreesion impossible, car il n'y a pas d'animation demandée avec l'id ${id}`,
-      );
-    }
-    return `Bravo: La catégorie avec l'id ${id} a bien été supprimée...`;
-  }
+  // async remove(idValue: string): Promise<string> {
+  //   const Result = await this.animationrequestedRepository.delete({ idValue });
+  //   if (Result.affected === 0) {
+  //     throw new NotFoundException(
+  //       `Suppreesion impossible, car il n'y a pas d'animation demandée avec l'id ${id}`,
+  //     );
+  //   }
+  //   return `Bravo: La catégorie avec l'id ${id} a bien été supprimée...`;
+  // }
 }

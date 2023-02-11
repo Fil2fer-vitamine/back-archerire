@@ -34,7 +34,7 @@ export class Customer {
 
   // ----------------------Mise en place de l'ORM via TypeORM-----------------------
   // ------Relation OneToMany entre les tables animationrequested ET customer-------
-  @OneToMany(() => Animationsrequested, (animation) => animation.customer, {
+  @OneToMany(() => Animationsrequested, (animations) => animations.customer, {
     onDelete: 'CASCADE',
     eager: true,
   })

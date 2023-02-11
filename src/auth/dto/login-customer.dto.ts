@@ -10,15 +10,7 @@ import {
 } from '@nestjs/class-validator';
 
 export class LoginCustomerDto {
-    // Nous ne gardons que ce qui nous est indispensable pour s'identifier : à savoir le nom, l'adresse mail et le mot de passe.
-
-      //------------ NAME - Formattage par le biais de class-validator---------------
-  @IsNotEmpty({ message: "Merci de saisir votre nom, s'il vous plait." })
-  @IsString({
-    message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
-  })
-  @MinLength(1, { message: 'Votre nom doit comporter plusieurs caractères.' })
-  name: string;
+  // Nous ne gardons que ce qui nous est indispensable pour s'identifier : à savoir  l'adresse mail et le mot de passe.
 
   //------------ E.MAIL - Formattage par le biais de class-validator---------------
   @IsNotEmpty({

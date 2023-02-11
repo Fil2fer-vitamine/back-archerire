@@ -83,3 +83,9 @@ npm i --save @nestjs/jwt
 
 Mettre des chaines de caractères dans mon id
 npm install uuid
+
+install Passport et jwt
+npm i @nestjs/passport @nestjs/jwt
+
+Install JsonWebToken
+npm install jsonwebtoken
