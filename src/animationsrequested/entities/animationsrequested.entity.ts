@@ -36,6 +36,7 @@ export class Animationsrequested {
   @ManyToOne(() => Customer, (customers) => customers.animationsrequested, {
     onDelete: 'CASCADE',
     nullable: false,
+    eager: false,
   })
   customer: Customer;
 

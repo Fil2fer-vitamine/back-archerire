@@ -1,3 +1,4 @@
+// importation des méthodes utilisées de par le biais de class-validator
 import {
   IsEmail,
   IsNotEmpty,
@@ -23,11 +24,11 @@ export class LoginCustomerDto {
   @IsNotEmpty({ message: ' Le mot de passe ne peux pas être vide' })
   @IsString({ message: 'Le mot de passe doit être une chaine de caractère' })
   @MinLength(8, {
-    message: 'Le mot de passe doit contenir au moins 8 caractères',
+    message: "Le mot de passe doit contenir au moins 8 caractères",
   })
   @Matches(/^(?=.[A-Z])(?=.[a-z])(?=.[0-9])/, {
     message:
-      '*Le mot de passe doit contenir une Majuscule, une minuscule et un nombre',
+      "Le mot de passe doit contenir une Majuscule, une minuscule et un nombre",
   })
   password: string;
 }

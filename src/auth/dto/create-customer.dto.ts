@@ -1,3 +1,4 @@
+// importation des méthodes utilisées de par le biais de class-validator
 import {
   IsEmail,
   IsNotEmpty,
@@ -10,7 +11,7 @@ import {
 } from '@nestjs/class-validator';
 
 export class CreateCustomerDto {
-  //------------ NAME - Formattage par le biais de class-validator---------------
+  //------------ NAME - Formatage par le biais de class-validator---------------
   @IsNotEmpty({ message: "Merci de saisir votre nom, s'il vous plait." })
   @IsString({
     message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
@@ -18,7 +19,7 @@ export class CreateCustomerDto {
   @MinLength(1, { message: 'Votre nom doit comporter plusieurs caractères.' })
   name: string;
 
-  //------------ FIRSTNAME - Formattage par le biais de class-validator---------------
+  //------------ FIRSTNAME - Formatage par le biais de class-validator---------------
   @IsNotEmpty({ message: "Merci de saisir votre prénom, s'il vous plait." })
   @IsString({
     message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
@@ -28,7 +29,7 @@ export class CreateCustomerDto {
   })
   firstname: string;
 
-  //------------ ADRESS - Formattage par le biais de class-validator---------------
+  //------------ ADRESS - Formatage par le biais de class-validator---------------
   @IsNotEmpty({ message: "Merci de saisir votre adresse, s'il vous plait." })
   @IsString({
     message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
@@ -38,7 +39,7 @@ export class CreateCustomerDto {
   })
   adress: string;
 
-  //------------ POSTAL_CODE - Formattage par le biais de class-validator---------------
+  //------------ POSTAL_CODE - Formatage par le biais de class-validator---------------
   @IsNotEmpty({
     message: "Merci de saisir votre code postal, s'il vous plait.",
   })
@@ -51,7 +52,7 @@ export class CreateCustomerDto {
   })
   postal_code: number;
 
-  //------------ CITY - Formattage par le biais de class-validator---------------
+  //------------ CITY - Formatage par le biais de class-validator---------------
   @IsNotEmpty({
     message: "Merci de nous indiquer votre ville, s'il vous plait.",
   })
@@ -63,7 +64,7 @@ export class CreateCustomerDto {
   })
   city: string;
 
-  //------------ PHONE - Formattage par le biais de class-validator---------------
+  //------------ PHONE - Formatage par le biais de class-validator---------------
   @IsNotEmpty({
     message: "Merci de saisir votre numéro de téléphone, s'il vous plait.",
   })
@@ -76,17 +77,15 @@ export class CreateCustomerDto {
   })
   phone: string;
 
-  //------------ E.MAIL - Formattage par le biais de class-validator---------------
+  //------------ E.MAIL - Formatage par le biais de class-validator---------------
   @IsNotEmpty({
     message: "Merci de saisir votre adresse mail, s'il vous plait.",
   })
-  @IsEmail({
-    message:
-      "Votre saisie pour l'adresse mail ne semble pas correspondre : merci de mettre une adresse mail valide.",
-  })
+  @IsEmail({}, { message: "Format d'email invalide" })
+  @IsString()
   email: string;
 
-  //------------ PASSWORD - Formattage par le biais de class-validator---------------
+  //------------ PASSWORD - Formatage par le biais de class-validator---------------
   @IsNotEmpty({ message: ' Le mot de passe ne peux pas être vide' })
   @IsString({ message: 'Le mot de passe doit être une chaine de caractère' })
   @MinLength(8, {
