@@ -1,11 +1,8 @@
 import {
   IsEmail,
   IsNotEmpty,
-  IsNumber,
-  IsPositive,
   IsString,
   Matches,
-  MaxLength,
   MinLength,
 } from '@nestjs/class-validator';
 

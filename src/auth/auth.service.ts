@@ -10,12 +10,13 @@ import { Repository } from 'typeorm';
 import { Customer } from 'src/customers/entities/customer.entity';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { LoginCustomerDto } from './dto/login-customer.dto';
+import { JwtService } from '@nestjs/jwt';
 
 //------------------------Authentification-----------------------------------
 @Injectable()
 export class AuthService {
-  jwtService: any;
   constructor(
+    private jwtService: JwtService,
     @InjectRepository(Customer)
     private customerRepository: Repository<Customer>,
   ) {}
