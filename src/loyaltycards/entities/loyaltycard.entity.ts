@@ -11,7 +11,7 @@ import { Customer } from 'src/customers/entities/customer.entity';
 @Entity()
 export class Loyaltycard {
   @PrimaryGeneratedColumn()
-  id?: number;
+  id?: string;
 
   @Column({ nullable: false, type: 'int' })
   card_number: number;

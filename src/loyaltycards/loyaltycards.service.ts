@@ -13,6 +13,11 @@ export class LoyaltycardsService {
   ) {}
 
   async create(createLoyaltycardDto: CreateLoyaltycardDto) {
+    const { card_number, number_of_points } = createLoyaltycardDto;
+    console.log(
+      "Ceci est l'objet Création LoyaltycardsDto---------------------------!!!!!",
+      createLoyaltycardDto,
+    );
     return await this.loyaltycardRepository.save(createLoyaltycardDto);
   }
 
@@ -20,7 +25,7 @@ export class LoyaltycardsService {
     return await this.loyaltycardRepository.find();
   }
 
-  async findOne(idValue: number): Promise<Loyaltycard> {
+  async findOneLoyaltycards(idValue: string): Promise<Loyaltycard> {
     const loyaltycardsfound = await this.loyaltycardRepository.findOneBy({
       id: idValue,
     });
@@ -32,16 +37,26 @@ export class LoyaltycardsService {
     return loyaltycardsfound;
   }
 
-  async update(
-    id: number,
-    updateLoyaltycardDto: UpdateLoyaltycardDto,
-  ): Promise<Loyaltycard> {
-    const upLoyaltycard = await this.findOne(id);
-    upLoyaltycard.card_number = updateLoyaltycardDto.card_number;
-    return await this.loyaltycardRepository.save(upLoyaltycard);
-  }
+    async patch(
+      id: string,
+      updateLoyaltycardsDto: UpdateLoyaltycardDto,
+    ): Promise<Loyaltycard> {
+      const upLoyaltycard = await this.loyaltycardRepository.findOne({
+        where: {id: id},
+      });
+  console.log('SERVICE --- upLoyaltycard est : ', upLoyaltycard);
+      if (!upLoyaltycard) {
+        throw new NotFoundException("Cette carte de fidélité n'existe pas.");
+      }
+      const {
+        card_number,
+        number_of_points,
+      } = updateLoyaltycardsDto;
 
-  async remove(id: number): Promise<string> {
+      return await this.loyaltycardRepository.save(upLoyaltycard);
+    }
+
+  async remove(id: string): Promise<string> {
     const Result = await this.loyaltycardRepository.delete({ id });
     if (Result.affected === 0) {
       throw new NotFoundException(

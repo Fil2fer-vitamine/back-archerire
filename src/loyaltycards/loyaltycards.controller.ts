@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { LoyaltycardsService } from './loyaltycards.service';
 import { CreateLoyaltycardDto } from './dto/create-loyaltycard.dto';
@@ -15,31 +17,35 @@ import { UpdateLoyaltycardDto } from './dto/update-loyaltycard.dto';
 export class LoyaltycardsController {
   constructor(private readonly loyaltycardsService: LoyaltycardsService) {}
 
-  @Post()
-  create(@Body() createLoyaltycardDto: CreateLoyaltycardDto) {
-    return this.loyaltycardsService.create(createLoyaltycardDto);
-  }
-
   @Get()
   findAll() {
     return this.loyaltycardsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.loyaltycardsService.findOne(+id);
+  findOne(@Param('id') id: string) {
+    return this.loyaltycardsService.findOneLoyaltycards(id);
+  }
+
+  @Post()
+  create(@Body() createLoyaltycardDto: CreateLoyaltycardDto) {
+    if (!createLoyaltycardDto.card_number)
+      throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
+    return this.loyaltycardsService.create(createLoyaltycardDto);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() updateLoyaltycardDto: UpdateLoyaltycardDto,
   ) {
-    return this.loyaltycardsService.update(+id, updateLoyaltycardDto);
+    if (!updateLoyaltycardDto.card_number)
+      throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
+    return this.loyaltycardsService.patch(id, updateLoyaltycardDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.loyaltycardsService.remove(+id);
+  remove(@Param('id') id: string) {
+    return this.loyaltycardsService.remove(id);
   }
 }
