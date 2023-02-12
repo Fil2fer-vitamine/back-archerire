@@ -12,23 +12,38 @@ export class LoginCustomerDto {
 
   //------------ E.MAIL - Formatage par le biais de class-validator---------------
   @IsNotEmpty({
-    message: "Merci de saisir votre adresse mail, s'il vous plait.",
-  })
-  @IsEmail({
     message:
-      "Votre saisie pour l'adresse mail ne semble pas correspondre : merci de mettre une adresse mail valide.",
+      "CHAMP 'E.MAIL' IMPACTE : Merci de saisir votre adresse mail, s'il vous plait.",
   })
+  @IsEmail(
+    {},
+    {
+      message:
+        "CHAMP 'E.MAIL' IMPACTE : Votre saisie pour l'adresse mail ne semble pas correspondre : merci de mettre une adresse mail valide.",
+    },
+  )
   email: string;
 
   //------------ PASSWORD - Formatage par le biais de class-validator---------------
-  @IsNotEmpty({ message: ' Le mot de passe ne peux pas être vide' })
-  @IsString({ message: 'Le mot de passe doit être une chaine de caractère' })
-  @MinLength(8, {
-    message: "Le mot de passe doit contenir au moins 8 caractères",
-  })
-  @Matches(/^(?=.[A-Z])(?=.[a-z])(?=.[0-9])/, {
+  @IsNotEmpty({
     message:
-      "Le mot de passe doit contenir une Majuscule, une minuscule et un nombre",
+      "CHAMP 'MOT DE PASSE' IMPACTE : Le champ 'mot de passe' ne peux pas être vide",
+  })
+  @IsString({
+    message:
+      "CHAMP 'MOT DE PASSE' IMPACTE : Le champ 'mot de passe' doit être une chaine de caractère",
+  })
+  @MinLength(8, {
+    message:
+      "CHAMP 'MOT DE PASSE' IMPACTE : Le champ 'mot de passe' doit contenir au moins 8 lettres",
+  })
+  @Matches(/^(?=.*[A-Z])/, {
+    message:
+      "CHAMP 'MOT DE PASSE' IMPACTE : Le champ 'mot de passe' doit contenir une Majuscule",
+  })
+  @Matches(/^(?=.*[a-z])/, {
+    message:
+      "CHAMP 'MOT DE PASSE' IMPACTE : Le champ 'mot de passe' doit contenir une minuscule",
   })
   password: string;
 }

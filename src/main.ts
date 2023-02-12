@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -10,6 +11,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // Toutes les URL de l'application débuteront par "api".
   app.setGlobalPrefix('api');
+
+  // Enlèvement de tous les champs qui ne sont pas déclaré dans les DTO
+  app.useGlobalPipes(
+    new ValidationPipe({
+      forbidUnknownValues: false,
+    }),
+  );
+
   // Depuis l'utilisation de "await", nous utilisons un écouteur sur le port 8080.
   await app.listen(8080);
 }

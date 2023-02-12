@@ -89,3 +89,6 @@ npm i @nestjs/passport @nestjs/jwt
 
 Install JsonWebToken
 npm install jsonwebtoken
+
+Install Class-validator et class-transformer ---  le 1er class-validator ne fonctionnait pas.
+npm i --save class-validator class-transformer

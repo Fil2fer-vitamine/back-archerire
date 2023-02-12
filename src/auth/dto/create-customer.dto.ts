@@ -6,94 +6,148 @@ import {
   IsPositive,
   IsString,
   Matches,
+  Max,
   MaxLength,
   MinLength,
 } from '@nestjs/class-validator';
 
 export class CreateCustomerDto {
   //------------ NAME - Formatage par le biais de class-validator---------------
-  @IsNotEmpty({ message: "Merci de saisir votre nom, s'il vous plait." })
-  @IsString({
-    message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
+  @IsNotEmpty({
+    message:
+      "CHAMP 'NAME' IMPACTE : Votre nom doit impérativement être saisi. Merci d'indiquer votre nom, s'il vous plait.",
   })
-  @MinLength(1, { message: 'Votre nom doit comporter plusieurs caractères.' })
+  @IsString({
+    message:
+      "CHAMP 'NAME' IMPACTE : Votre nom ne devrait comporter qu'une chaine de caractères.",
+  })
+  @MinLength(1, {
+    message:
+      "CHAMP 'NAME' IMPACTE : Votre nom se devrait de comporter plusieurs caractères.",
+  })
+  @Matches(/^[A-Z]*(-[A-Z]+)*$/, {
+    message:
+      "CHAMP 'NAME' IMPACTE : Votre prénom se doit d'être saisi en lettres majuscules (acceptation d'un ou plusieurs tirets - Exemple : ANDRE-DE-LA-TOUR)",
+  })
   name: string;
 
   //------------ FIRSTNAME - Formatage par le biais de class-validator---------------
-  @IsNotEmpty({ message: "Merci de saisir votre prénom, s'il vous plait." })
+  @IsNotEmpty({
+    message:
+      "CHAMP 'FIRSTNAME' IMPACTE : Votre prénom doit impérativement être saisi. Merci d'indiquer votre prénom, s'il vous plait.",
+  })
   @IsString({
-    message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
+    message:
+      "CHAMP 'FIRSTNAME' IMPACTE : Votre prénom ne devrait comporter qu'une chaine de caractères.",
   })
   @MinLength(1, {
-    message: 'Votre prénom doit comporter plusieurs caractères.',
+    message:
+      "CHAMP 'FIRSTNAME' IMPACTE : Votre prénom se devrait de comporter plusieurs caractères.",
+  })
+  @Matches(/^[A-Z][a-z]*(-[A-Z][a-z]+)*$/, {
+    message:
+      "CHAMP 'FIRSTNAME' IMPACTE : Votre prénom doit commencer par une lettre majuscule suivie de lettres minuscules et accepte un ou plusieurs tirets - Exemple : Jean-Joseph",
   })
   firstname: string;
 
   //------------ ADRESS - Formatage par le biais de class-validator---------------
-  @IsNotEmpty({ message: "Merci de saisir votre adresse, s'il vous plait." })
+  @IsNotEmpty({
+    message:
+      "CHAMP 'ADRESS' IMPACTE : Votre adresse doit impérativement être saisie. Merci d'indiquer votre adresse, s'il vous plait.",
+  })
   @IsString({
-    message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
+    message:
+      "CHAMP 'ADRESS' IMPACTE : Votre adresse ne devrait comporter qu'une chaine de caractères.",
   })
   @MinLength(1, {
-    message: 'Votre prénom doit comporter plusieurs caractères.',
+    message:
+      "CHAMP 'ADRESS' IMPACTE : Votre adresse se devrait de comporter plusieurs caractères.",
+  })
+  @Matches(/^\d+,\s[A-Za-z\- ]+$/, {
+    message:
+      "CHAMP 'ADRESS' IMPACTE : Votre indication de rue doit être un nombre suivi d'une virgule, puis d'une chaîne de caractères en lettres majuscules ou minuscules et qui accepte un tiret - Exemple : 02, Rue de la rue proche de la ruelle",
   })
   adress: string;
 
   //------------ POSTAL_CODE - Formatage par le biais de class-validator---------------
   @IsNotEmpty({
-    message: "Merci de saisir votre code postal, s'il vous plait.",
+    message:
+      "CHAMP 'POSTAL_CODE' IMPACTE : Merci de saisir votre code postal, s'il vous plait.",
   })
-  @MaxLength(5, {
-    message: 'Votre code postal doit comporter cinq chiffres.',
+  @MinLength(5, {
+    message:
+      "CHAMP 'POSTAL_CODE' IMPACTE : Votre code postal doit comporter cinq caractères au minimum.",
   })
-  @IsNumber()
-  @IsPositive({
-    message: 'Votre code postal ne doit comporter que cinq chiffres',
+  @Max(5, {
+    message:
+      "CHAMP 'POSTAL_CODE' IMPACTE : Votre code postal ne doit comporter que cinq chiffres.",
   })
   postal_code: number;
 
   //------------ CITY - Formatage par le biais de class-validator---------------
   @IsNotEmpty({
-    message: "Merci de nous indiquer votre ville, s'il vous plait.",
+    message:
+      "CHAMP 'CITY' IMPACTE : Merci de nous indiquer votre ville, s'il vous plait.",
   })
   @IsString({
-    message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
+    message:
+      "CHAMP 'CITY' IMPACTE : Votre réponse ne devrait comporter qu'une chaine de caractères.",
   })
   @MinLength(1, {
-    message: 'Votre ville doit comporter plusieurs caractères.',
+    message:
+      "CHAMP 'CITY' IMPACTE : Votre ville doit comporter plusieurs caractères.",
+  })
+  @Matches(/^[A-Z][a-z]*(-[A-Z][a-z]+)*$/, {
+    message:
+      "CHAMP 'CITY' IMPACTE : Le champ doit commencer par une lettre majuscule suivie de lettres minuscules et accepte un ou plusieurs tirets. Exemple : New-York-Sur-Seine.",
   })
   city: string;
 
   //------------ PHONE - Formatage par le biais de class-validator---------------
   @IsNotEmpty({
-    message: "Merci de saisir votre numéro de téléphone, s'il vous plait.",
+    message:
+      "CHAMP 'PHONE' IMPACTE : Merci de saisir votre numéro de téléphone, s'il vous plait.",
   })
-  @MaxLength(10, {
-    message: 'Votre numéro de téléphone doit comporter dix chiffres.',
-  })
-  @IsNumber()
-  @IsPositive({
-    message: 'Votre numéro de téléphone ne doit comporter que dix chiffres',
+  @MinLength(10, {
+    message:
+      "CHAMP 'PHONE' IMPACTE : Votre numéro de téléphone ne doit être composé que de dix chiffres.",
   })
   phone: string;
 
   //------------ E.MAIL - Formatage par le biais de class-validator---------------
   @IsNotEmpty({
-    message: "Merci de saisir votre adresse mail, s'il vous plait.",
+    message:
+      "CHAMP 'E.MAIL' IMPACTE : Merci de saisir votre adresse mail, s'il vous plait.",
   })
-  @IsEmail({}, { message: "Format d'email invalide" })
-  @IsString()
+  @IsEmail(
+    {},
+    {
+      message:
+        "CHAMP 'E.MAIL' IMPACTE : Votre saisie pour l'adresse mail ne semble pas correspondre : merci de mettre une adresse mail valide.",
+    },
+  )
   email: string;
 
   //------------ PASSWORD - Formatage par le biais de class-validator---------------
-  @IsNotEmpty({ message: ' Le mot de passe ne peux pas être vide' })
-  @IsString({ message: 'Le mot de passe doit être une chaine de caractère' })
-  @MinLength(8, {
-    message: 'Le mot de passe doit contenir au moins 8 caractères',
-  })
-  @Matches(/^(?=.[A-Z])(?=.[a-z])(?=.[0-9])/, {
+  @IsNotEmpty({
     message:
-      '*Le mot de passe doit contenir une Majuscule, une minuscule et un nombre',
+      "CHAMP 'MOT DE PASSE' IMPACTE : Le champ 'mot de passe' ne peux pas être vide",
+  })
+  @IsString({
+    message:
+      "CHAMP 'MOT DE PASSE' IMPACTE : Le champ 'mot de passe' doit être une chaine de caractère",
+  })
+  @MinLength(8, {
+    message:
+      "CHAMP 'MOT DE PASSE' IMPACTE : Le champ 'mot de passe' doit contenir au moins 8 lettres",
+  })
+  @Matches(/^(?=.*[A-Z])/, {
+    message:
+      "CHAMP 'MOT DE PASSE' IMPACTE : Le champ 'mot de passe' doit contenir une Majuscule",
+  })
+  @Matches(/^(?=.*[a-z])/, {
+    message:
+      "CHAMP 'MOT DE PASSE' IMPACTE : Le champ 'mot de passe' doit contenir une minuscule",
   })
   password: string;
 }
