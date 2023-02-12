@@ -8,17 +8,17 @@ export class Customer {
   @PrimaryGeneratedColumn('uuid')
   id?: string;
 
-  @Column({ nullable: false, unique: true })
+  @Column({ nullable: false, unique: false })
   name: string;
 
-  @Column({ nullable: false, unique: true })
+  @Column({ nullable: false, unique: false })
   firstname: string;
 
   @Column({ nullable: false })
   adress: string;
 
   @Column({ nullable: false })
-  postal_code: number;
+  postal_code: string;
 
   @Column({ nullable: false })
   city: string;

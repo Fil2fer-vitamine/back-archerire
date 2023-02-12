@@ -3,18 +3,19 @@ import {
   IsNotEmpty,
   IsString,
   MinLength,
-  MaxLength,
-  IsNumber,
-  IsPositive,
   IsEmail,
   Matches,
-  Max,
-  Min,
+  IsNumberString,
+  Length,
 } from '@nestjs/class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateCustomerDto } from '../../auth/dto/create-customer.dto';
 
 export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {
+  /**
+   * Ici : Formatages des entrées fournies par l'utilisateur
+   */
+
   //------------ NAME - Formatage par le biais de class-validator---------------
   @IsNotEmpty({
     message:
@@ -77,15 +78,18 @@ export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {
     message:
       "CHAMP 'POSTAL_CODE' IMPACTE : Merci de saisir votre code postal, s'il vous plait.",
   })
-  @MinLength(5, {
+  @IsNumberString(
+    {},
+    {
+      message:
+        "CHAMP 'POSTAL_CODE' IMPACTE : Le code postal contient impérativement cinq chiffres.",
+    },
+  )
+  @Length(5, 5, {
     message:
-      "CHAMP 'POSTAL_CODE' IMPACTE : Votre code postal doit comporter cinq caractères au minimum.",
+      "CHAMP 'POSTAL_CODE' IMPACTE : Votre code postal doit comporter cinq chiffres au minimum. Exemple : Si votre code postal comporte moins de cinq chiffres, précédez-les d'autant de '0' pour atteindre 5 caractères.",
   })
-  @Max(5, {
-    message:
-      "CHAMP 'POSTAL_CODE' IMPACTE : Votre code postal ne doit comporter que cinq chiffres.",
-  })
-  postal_code: number;
+  postal_code: string;
 
   //------------ CITY - Formatage par le biais de class-validator---------------
   @IsNotEmpty({

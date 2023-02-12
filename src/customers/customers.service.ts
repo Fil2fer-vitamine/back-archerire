@@ -86,13 +86,13 @@ export class CustomersService {
       }
   }
 
-  // async remove(id: number): Promise<string> {
-  //   const Result = await this.customerRepository.delete({ id });
-  //   if (Result.affected === 0) {
-  //     throw new NotFoundException(
-  //       `Suppression impossible, car il n'y a pas d'adresse mail avec l'id ${id}`,
-  //     );
-  //   }
-  //   return `Bravo: L'adresse mail avec l'id ${id} a bien été supprimée...`;
-  // }
+  async remove(id: string): Promise<string> {
+    const Result = await this.customerRepository.delete({ id });
+    if (Result.affected === 0) {
+      throw new NotFoundException(
+        `Suppression impossible, car il n'y a pas de Client avec l'id ${id}`,
+      );
+    }
+    return `Bravo: Le Client avec l'id ${id} a bien été supprimé...`;
+  }
 }

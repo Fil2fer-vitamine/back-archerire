@@ -37,7 +37,7 @@ export class AuthService {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // création d'une entité user
+    // création d'une entité utilisateur
     const customer = await this.customerRepository.create({
       name,
       firstname,
@@ -52,11 +52,13 @@ export class AuthService {
     try {
       // enregistrement de l'entité user
       const createdCustomer = await this.customerRepository.save(customer);
+      delete createdCustomer.password; // soéli
       return createdCustomer;
     } catch (error) {
+      console.log('lign 58 auth service', error);
       // gestion des erreurs
       if (error.code === '23505') {
-        throw new ConflictException('Ce nom existe déjà !!!');
+        throw new ConflictException('Ce nom existe déjà Soéli');
       } else {
         throw new InternalServerErrorException();
       }

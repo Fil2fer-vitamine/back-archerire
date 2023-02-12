@@ -8,7 +8,11 @@ import {
 } from '@nestjs/class-validator';
 
 export class LoginCustomerDto {
-  // Nous ne gardons que ce qui nous est indispensable pour s'identifier : à savoir  l'adresse mail et le mot de passe.
+  // Nous ne gardons que ce qui nous est indispensable pour s'identifier : à savoir  l'adresse mail et le mot de passe qui constituent les éléments en notre possesion qui assurent l'authentification de l'utilisateur.
+
+  /**
+   * Ici : Formatages des entrées fournies par l'utilisateur
+   */
 
   //------------ E.MAIL - Formatage par le biais de class-validator---------------
   @IsNotEmpty({

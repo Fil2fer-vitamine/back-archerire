@@ -20,7 +20,7 @@ export class AuthController {
     return this.authService.registerCustomer(createCustomerDto);
   }
   @Post('login') // http://localhost:8080/api/auth/login/
-  async login(
+  login(
     @Body() loginCustomerDto: LoginCustomerDto,
   ): Promise<{ accessToken: string }> {
     return this.authService.loginCustomer(loginCustomerDto);
