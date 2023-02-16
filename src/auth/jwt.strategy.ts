@@ -12,16 +12,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private customersRepository: Repository<Customer>,
   ) {
     super({
-      secretOrKey: 'Ilmetonneraitquejarriveafairedudev',
+      secretOrKey: 'Passe-Secret',
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }
 
   async validate(payload: any): Promise<Customer> {
     console.log('validate');
-    const idCustomer = payload.customer.id;
+    // const idCustomer = payload.customer.id;
+    const { id } = payload;
     const user: Customer = await this.customersRepository.findOneBy({
-      id: idCustomer,
+      id,
     });
 
     if (!user) throw new UnauthorizedException();

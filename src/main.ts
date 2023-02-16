@@ -12,10 +12,10 @@ async function bootstrap() {
   // Toutes les URL de l'application débuteront par "api".
   app.setGlobalPrefix('api');
 
-  // Enlèvement de tous les champs qui ne sont pas déclaré dans les DTO
+  // Les Pipes permettent de valider, de transformer ou de filtrer des DONNEES entrantes ou sortantes dans une requête HTTP avant traitement par un controller : ici nous vérifions les données saisies par l'utilisateur
   app.useGlobalPipes(
     new ValidationPipe({
-      forbidUnknownValues: false,
+      forbidUnknownValues: true,
     }),
   );
 

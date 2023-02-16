@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotFoundError } from 'rxjs';
+import { Customer } from 'src/customers/entities/customer.entity';
 import { Repository } from 'typeorm';
 import { CreateAnimationsrequestedDto } from './dto/create-animationsrequested.dto';
 import { UpdateAnimationsrequestedDto } from './dto/update-animationsrequested.dto';
@@ -13,10 +14,13 @@ export class AnimationsrequestedService {
     private animationrequestedRepository: Repository<Animationsrequested>,
   ) {}
 
-  async create(createAnimationsrequestedDto: CreateAnimationsrequestedDto) {
-    return await this.animationrequestedRepository.save(
-      createAnimationsrequestedDto,
-    );
+  async create(
+    createAnimationsrequestedDto: CreateAnimationsrequestedDto,
+    userQuiSoumetLaRequete: Customer,
+  ) {
+    const customer = { id: userQuiSoumetLaRequete.id };
+    const reqAvecCustomer = { ...createAnimationsrequestedDto, customer };
+    return await this.animationrequestedRepository.save(reqAvecCustomer);
   }
 
   async findAll(): Promise<Animationsrequested[]> {
@@ -45,13 +49,15 @@ export class AnimationsrequestedService {
     return await this.animationrequestedRepository.save(upAnimation);
   }
 
-  // async remove(idValue: string): Promise<string> {
-  //   const Result = await this.animationrequestedRepository.delete({ idValue });
-  //   if (Result.affected === 0) {
-  //     throw new NotFoundException(
-  //       `Suppreesion impossible, car il n'y a pas d'animation demandée avec l'id ${id}`,
-  //     );
-  //   }
-  //   return `Bravo: La catégorie avec l'id ${id} a bien été supprimée...`;
-  // }
+  async remove(idValue: string): Promise<string> {
+    const Result = await this.animationrequestedRepository.delete({
+      id: idValue,
+    });
+    if (Result.affected === 0) {
+      throw new NotFoundException(
+        `Suppreesion impossible, car il n'y a pas d'animation demandée avec l'id ${idValue}`,
+      );
+    }
+    return `Bravo: La catégorie avec l'id ${idValue} a bien été supprimée...`;
+  }
 }

@@ -16,16 +16,13 @@ import { AuthGuard } from '@nestjs/passport';
 import { GetCustomer } from 'src/auth/get-user.decorator';
 
 @Controller('customers')
+@UseGuards(AuthGuard('jwt'))
 export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
 
-  @Get()
-  findAll() {
-    return this.customersService.findAllCustomer();
-  }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
+    console.log('@Param Id ---> Controller : ', id);
     return this.customersService.findOneCustomer(id);
   }
 
@@ -33,17 +30,30 @@ export class CustomersController {
   async update(
     @Param('id') id: string,
     @Body() updateCustomerDto: UpdateCustomerDto,
-    @GetCustomer() custumer: Customer,
+    @GetCustomer() customer: Customer,
   ): Promise<Customer> {
+    console.log(
+      '--------------CONTROLLER updateCustomerDto - patch() -----------------',
+      updateCustomerDto,
+    );
     return this.customersService.updateCustomer(
       id,
       updateCustomerDto,
-      custumer,
+      customer,
     );
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.customersService.remove(id);
+  async delete(@Param('id') id: string, @GetCustomer() customer: Customer) {
+    console.log(
+      '--------------CONTROLLER Customer - delete() -----------------',
+      customer,
+    );
+    return this.customersService.deleteCustomer(id, customer);
+  }
+
+  @Get()
+  findAll() {
+    return this.customersService.findAllCustomer();
   }
 }

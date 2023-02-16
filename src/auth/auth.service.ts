@@ -53,9 +53,13 @@ export class AuthService {
       // enregistrement de l'entité user
       const createdCustomer = await this.customerRepository.save(customer);
       delete createdCustomer.password; // soéli
+      console.log('--------------SERVICE auth - creat() -----------------', createdCustomer);
       return createdCustomer;
     } catch (error) {
-      console.log('lign 58 auth service', error);
+      console.log(
+        "Ceci est l'objet auth service - au niveau de l'erreur :",
+        error,
+      );
       // gestion des erreurs
       if (error.code === '23505') {
         throw new ConflictException('Ce nom existe déjà Soéli');
@@ -64,12 +68,19 @@ export class AuthService {
       }
     }
   }
+
   async loginCustomer(loginCustomerDto: LoginCustomerDto) {
     const { email, password } = loginCustomerDto;
     const customer = await this.customerRepository.findOneBy({ email });
+    console.log('--------------SERVICE auth - login() -----------------', customer);
+    console.log(
+      '--------------SERVICE auth - email et password -----------------',
+      email, password
+    );
 
     if (customer && (await bcrypt.compare(password, customer.password))) {
-      const payload = { customer };
+      // const payload = { customer };
+      const payload = { email: loginCustomerDto.email, id: customer.id };
       const accessToken = await this.jwtService.sign(payload);
       return { accessToken };
     } else {
