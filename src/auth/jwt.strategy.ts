@@ -18,12 +18,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any): Promise<Customer> {
-    console.log('validate');
+    console.log('---JWT.STRATEGY au niveau du Payload : validate ---');
     // const idCustomer = payload.customer.id;
     const { id } = payload;
     const user: Customer = await this.customersRepository.findOneBy({
       id,
     });
+        console.log('---JWT.STRATEGY - Utilisateur autorisé --> ', user);
 
     if (!user) throw new UnauthorizedException();
     return user;

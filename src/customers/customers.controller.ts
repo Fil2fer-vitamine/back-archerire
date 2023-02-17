@@ -22,6 +22,7 @@ export class CustomersController {
 
   @Get() // http://localhost:8080/api/customers
   findAll() {
+    console.log("---")
     return this.customersService.findAllCustomer();
   }
 

@@ -31,7 +31,14 @@ export class AnimationsrequestedController {
     @Body() createAnimationsrequestedDto: CreateAnimationsrequestedDto,
     @GetCustomer() customer: Customer,
   ) {
-    // console.log(customer, 'customer dans le controller animation');
+console.log(
+  '---SERVICE ANIMATIONSREQUESTED // CONTROLLER --> createAnimationsrequestedDto --- : ',
+  createAnimationsrequestedDto,
+);
+  //   console.log(
+  //   '---SERVICE ANIMATIONSREQUESTED // CONTROLLER --> customer --- : ',
+  //   customer,
+  // );
     return this.animationsrequestedService.create(
       createAnimationsrequestedDto,
       customer,
