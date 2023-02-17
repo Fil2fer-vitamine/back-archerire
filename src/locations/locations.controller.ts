@@ -27,7 +27,7 @@ export class LocationsController {
     @Param('id') id: number,
     @Body() updateLocationDto: UpdateLocationDto,
   ) {
-    return this.locationsService.update(+id, updateLocationDto);
+    return this.locationsService.update(id, updateLocationDto);
   }
 
   @Delete(':id')

@@ -6,7 +6,7 @@ export class Location {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ nullable: false, type: 'varchar', length: 255 })
+  @Column({ unique: true, nullable: false, type: 'varchar', length: 255 })
   village_name: string;
 
   @OneToMany(() => Animationsrequested, (animation) => animation.location)

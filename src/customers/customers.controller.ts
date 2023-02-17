@@ -20,6 +20,11 @@ import { GetCustomer } from 'src/auth/get-user.decorator';
 export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
 
+  @Get()
+  findAll() {
+    return this.customersService.findAllCustomer();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     console.log('@Param Id ---> Controller : ', id);
@@ -50,10 +55,5 @@ export class CustomersController {
       customer,
     );
     return this.customersService.deleteCustomer(id, customer);
-  }
-
-  @Get()
-  findAll() {
-    return this.customersService.findAllCustomer();
   }
 }

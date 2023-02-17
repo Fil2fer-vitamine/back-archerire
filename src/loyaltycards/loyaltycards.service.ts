@@ -21,7 +21,8 @@ export class LoyaltycardsService {
     return await this.loyaltycardRepository.save(createLoyaltycardDto);
   }
 
-  async findAll(): Promise<Loyaltycard[]> {
+  async findAllLoyaltycards(): Promise<Loyaltycard[]> {
+    console.log('-----------SERVICE Loyaltycard--------------', Loyaltycard);
     return await this.loyaltycardRepository.find();
   }
 
@@ -37,24 +38,32 @@ export class LoyaltycardsService {
     return loyaltycardsfound;
   }
 
-    async patch(
-      id: string,
-      updateLoyaltycardsDto: UpdateLoyaltycardDto,
-    ): Promise<Loyaltycard> {
-      const upLoyaltycard = await this.loyaltycardRepository.findOne({
-        where: {id: id},
-      });
-  console.log('SERVICE --- upLoyaltycard est : ', upLoyaltycard);
-      if (!upLoyaltycard) {
-        throw new NotFoundException("Cette carte de fidélité n'existe pas.");
-      }
-      const {
-        card_number,
-        number_of_points,
-      } = updateLoyaltycardsDto;
+  // async patch(
+  //   id: string,
+  //   updateLoyaltycardsDto: UpdateLoyaltycardDto,
+  // ): Promise<Loyaltycard> {
+  //   const upLoyaltycard = await this.loyaltycardRepository.findOne({
+  //     where: { id: id },
+  //   });
+  //   console.log('SERVICE --- upLoyaltycard est : ', upLoyaltycard);
+  //   if (!upLoyaltycard) {
+  //     throw new NotFoundException("Cette carte de fidélité n'existe pas.");
+  //   }
+  //   const { card_number, number_of_points } = updateLoyaltycardsDto;
 
-      return await this.loyaltycardRepository.save(upLoyaltycard);
-    }
+  //   return await this.loyaltycardRepository.save(upLoyaltycard);
+  // }
+  async patch(
+    id: string,
+    updateLoyaltycardsDto: UpdateLoyaltycardDto,
+  ): Promise<Loyaltycard> {
+    const upLoyaltycard = await this.findOneLoyaltycards(id);
+    // Demande de comparer et retrouver la bonne carte par son id
+    upLoyaltycard.number_of_points = updateLoyaltycardsDto.number_of_points;
+    // Remplacement du nombre de points.
+    return await this.loyaltycardRepository.save(upLoyaltycard);
+    // sauvegarde et affichage de la carte modifiée.
+  }
 
   async remove(id: string): Promise<string> {
     const Result = await this.loyaltycardRepository.delete({ id });

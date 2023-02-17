@@ -39,13 +39,28 @@ export class AnimationsrequestedService {
     return animationfound;
   }
 
+  // async update(
+  //   idValue: string,
+  //   updateAnimationsrequestedDto: UpdateAnimationsrequestedDto,
+  // ): Promise<Animationsrequested> {
+  //   const upAnimation = await this.findOne(idValue);
+  //   upAnimation.kind_of_animation =
+  //     updateAnimationsrequestedDto.kind_of_animation;
+  //   return await this.animationrequestedRepository.save(upAnimation);
+  // }
+
   async update(
     idValue: string,
     updateAnimationsrequestedDto: UpdateAnimationsrequestedDto,
   ): Promise<Animationsrequested> {
     const upAnimation = await this.findOne(idValue);
+    upAnimation.date = updateAnimationsrequestedDto.date;
     upAnimation.kind_of_animation =
       updateAnimationsrequestedDto.kind_of_animation;
+    upAnimation.number_of_participants =
+      updateAnimationsrequestedDto.number_of_participants;
+    upAnimation.for_who = updateAnimationsrequestedDto.for_who;
+    upAnimation.question = updateAnimationsrequestedDto.question;
     return await this.animationrequestedRepository.save(upAnimation);
   }
 

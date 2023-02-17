@@ -24,7 +24,7 @@ export class Animationsrequested {
   @Column({ nullable: true })
   question: string;
 
-  @Column()
+  @Column({nullable: true})
   decision_admin: boolean;
 
   @Column({ nullable: true })

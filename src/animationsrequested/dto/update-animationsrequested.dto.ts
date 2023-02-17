@@ -4,6 +4,7 @@ import {
   IsString,
   MinLength,
   MaxLength,
+  IsOptional,
 } from '@nestjs/class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateAnimationsrequestedDto } from './create-animationsrequested.dto';
@@ -20,6 +21,7 @@ export class UpdateAnimationsrequestedDto extends PartialType(
   date: string;
 
   //------------ KIND_of_ANIMATION - Formattage par le biais de class-validator---------------
+  @IsOptional()
   @IsNotEmpty({ message: "Merci de saisir une sorte d'animation." })
   @IsString({
     message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
@@ -27,20 +29,23 @@ export class UpdateAnimationsrequestedDto extends PartialType(
   kind_of_animation: string;
 
   //--------- NUMBER_of_PARTIPANTS - Formattage par le biais de class-validator---------------
+  @IsOptional()
   @IsNotEmpty({
     message:
       "Merci de nous indiquer le nombre de participants, s'il vous plait.",
   })
-  @MinLength(6, {
-    message: "Le groupe se doit d'être composé d'au moins six participants.",
-  })
-  @MaxLength(12, {
-    message:
-      "Le groupe est limité à douze personnes - Merci de contacter (par mail ou téléphone) l'administrateur pour un groupe de participants supérieur à 12 personnes.",
-  })
+  // @MinLength(6, {                --ATTENTION : A REVOIR LE NOMBRE --
+  //   message: "Le groupe se doit d'être composé d'au moins six participants.",
+  // })
+  // @MaxLength(12, {
+  //   message:
+  //     "Le groupe est limité à douze personnes - Merci de contacter (par mail ou téléphone) l'administrateur pour un groupe de participants supérieur à 12 personnes.",
+  // })
   number_of_participants: number;
 
   //--------- FOR_WHO - Formattage par le biais de class-validator---------------
+
+  @IsOptional()
   @IsNotEmpty({
     message:
       'Qui est concerné par cette demande ? Est-ce des particuliers, une association, une entreprise ou une communauté ?',
@@ -59,6 +64,7 @@ export class UpdateAnimationsrequestedDto extends PartialType(
   for_who: string;
 
   //--------- QUESTION - Formattage par le biais de class-validator---------------
+  @IsOptional()
   @IsString({
     message:
       'Merci pour votre message. Nous vous répondrons dans de très brefs délais',

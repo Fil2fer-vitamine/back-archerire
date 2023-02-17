@@ -8,6 +8,8 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
+import { HttpStatus } from '@nestjs/common/enums';
+import { HttpException } from '@nestjs/common/exceptions';
 import { AuthGuard } from '@nestjs/passport';
 import { GetCustomer } from 'src/auth/get-user.decorator';
 import { Customer } from 'src/customers/entities/customer.entity';
@@ -48,13 +50,22 @@ export class AnimationsrequestedController {
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id') idValue: string,
     @Body() updateAnimationsrequestedDto: UpdateAnimationsrequestedDto,
-    @GetCustomer() customer: Customer, // Ceci permettra de ne pas mélanger les customer.
+    // @GetCustomer() customer: Customer, // Ceci permettra de ne pas mélanger les customer.
+    // console.log(customer, 'customer dans le controller animation');
   ) {
-    console.log(customer, 'customer dans le controller animation');
+    if (
+      !updateAnimationsrequestedDto.date &&
+      !updateAnimationsrequestedDto.kind_of_animation &&
+      !updateAnimationsrequestedDto.number_of_participants &&
+      !updateAnimationsrequestedDto.for_who &&
+      !updateAnimationsrequestedDto.question
+    )
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+
     return this.animationsrequestedService.update(
-      id,
+      idValue,
       updateAnimationsrequestedDto,
     );
   }

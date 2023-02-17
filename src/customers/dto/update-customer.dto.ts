@@ -7,6 +7,7 @@ import {
   Matches,
   IsNumberString,
   Length,
+  IsOptional,
 } from '@nestjs/class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateCustomerDto } from '../../auth/dto/create-customer.dto';
@@ -122,6 +123,7 @@ export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {
   phone: string;
 
   //------------ E.MAIL - Formatage par le biais de class-validator---------------
+  @IsOptional() // Ce décorateur rend ne champ optionnel de par @IsOptional
   @IsNotEmpty({
     message:
       "CHAMP 'E.MAIL' IMPACTE : Merci de saisir votre adresse mail, s'il vous plait.",
@@ -136,6 +138,7 @@ export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {
   email: string;
 
   //------------ PASSWORD - Formatage par le biais de class-validator---------------
+  @IsOptional() // Ce décorateur rend ne champ optionnel de par @IsOptional
   @IsNotEmpty({
     message:
       "CHAMP 'MOT DE PASSE' IMPACTE : Le champ 'mot de passe' ne peux pas être vide",

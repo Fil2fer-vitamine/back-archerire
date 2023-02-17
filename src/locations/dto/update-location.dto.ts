@@ -9,6 +9,5 @@ export class UpdateLocationDto extends PartialType(CreateLocationDto) {
     message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
   })
   @MinLength(1, { message: 'Le village doit comporter plusieurs caractères.' })
-  name: string;
   village_name: string;
 }

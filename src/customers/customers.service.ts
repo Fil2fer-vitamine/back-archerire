@@ -17,6 +17,10 @@ export class CustomersService {
     private customerRepository: Repository<Customer>,
   ) {}
 
+  async findAllCustomer(): Promise<Customer[]> {
+    return await this.customerRepository.find();
+  }
+
   async findOneCustomer(idValue: string): Promise<Customer> {
     const customerfound = await this.customerRepository.findOneBy({
       id: idValue,
@@ -58,6 +62,7 @@ export class CustomersService {
       phone,
       email,
     } = updateCustomerDto;
+    console.log('COUCOU -> ', updateCustomerDto);
     try {
       if (updateCustomerDto.password) {
         const salt = await bcrypt.genSalt();
@@ -73,11 +78,11 @@ export class CustomersService {
       }
       if (updateCustomerDto.firstname) {
         upCustomer.firstname = firstname;
+        console.log(
+          '--------------SERVICE updateCustomerDto.firstname -----------------',
+          upCustomer.firstname,
+        );
       }
-      console.log(
-        '--------------SERVICE updateCustomerDto.firstname -----------------',
-        upCustomer.firstname,
-      );
       if (updateCustomerDto.adress) {
         upCustomer.adress = adress;
         console.log(
@@ -136,9 +141,5 @@ export class CustomersService {
       Result,
     );
     return `Bravo: Le Client avec l'id ${id} a bien été supprimé...`;
-  }
-
-  async findAllCustomer(): Promise<Customer[]> {
-    return await this.customerRepository.find();
   }
 }

@@ -13,7 +13,7 @@ export class Loyaltycard {
   @PrimaryGeneratedColumn()
   id?: string;
 
-  @Column({ nullable: false, type: 'int' })
+  @Column({ unique: true, nullable: false, type: 'int' })
   card_number: number;
 
   @Column({ nullable: true, type: 'int' })
