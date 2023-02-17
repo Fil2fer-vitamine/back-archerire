@@ -53,16 +53,21 @@ export class AuthService {
       // enregistrement de l'entité user
       const createdCustomer = await this.customerRepository.save(customer);
       delete createdCustomer.password; // soéli
-      console.log('--------------SERVICE auth - creat() -----------------', createdCustomer);
+      console.log(
+        '---SERVICE AUTH // SERVICE --> createdCustomer --- : ',
+        createdCustomer,
+      );
       return createdCustomer;
     } catch (error) {
       console.log(
-        "Ceci est l'objet auth service - au niveau de l'erreur :",
+        "---SERVICE AUTH // SERVICE --> au niveau de l'erreur --- :",
         error,
       );
       // gestion des erreurs
       if (error.code === '23505') {
-        throw new ConflictException('Ce nom existe déjà Soéli');
+        throw new ConflictException(
+          '---SERVICE AUTH // SERVICE --> Ce nom existe déjà. ---',
+        );
       } else {
         throw new InternalServerErrorException();
       }
@@ -72,10 +77,14 @@ export class AuthService {
   async loginCustomer(loginCustomerDto: LoginCustomerDto) {
     const { email, password } = loginCustomerDto;
     const customer = await this.customerRepository.findOneBy({ email });
-    console.log('--------------SERVICE auth - login() -----------------', customer);
     console.log(
-      '--------------SERVICE auth - email et password -----------------',
-      email, password
+      '---SERVICE AUTH // SERVICE --> login() customer--- : ',
+      customer,
+    );
+    console.log(
+      '---SERVICE AUTH // SERVICE --> email et password--- : ',
+      email,
+      password,
     );
 
     if (customer && (await bcrypt.compare(password, customer.password))) {
@@ -84,7 +93,9 @@ export class AuthService {
       const accessToken = await this.jwtService.sign(payload);
       return { accessToken };
     } else {
-      throw new UnauthorizedException('Ces identifiants ne sont pas bons...');
+      throw new UnauthorizedException(
+        '---SERVICE AUTH // SERVICE Au niveau bcrypt --> Ces identifiants ne sont pas bons.',
+      );
     }
   }
 }

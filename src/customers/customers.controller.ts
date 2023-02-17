@@ -15,23 +15,23 @@ import { Customer } from './entities/customer.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { GetCustomer } from 'src/auth/get-user.decorator';
 
-@Controller('customers')
+@Controller('customers') // http://localhost:8080/api/customers
 @UseGuards(AuthGuard('jwt'))
 export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
 
-  @Get()
+  @Get() // http://localhost:8080/api/customers
   findAll() {
     return this.customersService.findAllCustomer();
   }
 
-  @Get(':id')
+  @Get(':id') // http://localhost:8080/api/customers
   findOne(@Param('id') id: string) {
     console.log('@Param Id ---> Controller : ', id);
     return this.customersService.findOneCustomer(id);
   }
 
-  @Patch(':id')
+  @Patch(':id') // http://localhost:8080/api/customers
   async update(
     @Param('id') id: string,
     @Body() updateCustomerDto: UpdateCustomerDto,
@@ -48,7 +48,7 @@ export class CustomersController {
     );
   }
 
-  @Delete(':id')
+  @Delete(':id') // http://localhost:8080/api/customers
   async delete(@Param('id') id: string, @GetCustomer() customer: Customer) {
     console.log(
       '--------------CONTROLLER Customer - delete() -----------------',

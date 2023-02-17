@@ -20,10 +20,22 @@ export class AnimationsrequestedService {
   ) {
     const customer = { id: userQuiSoumetLaRequete.id };
     const reqAvecCustomer = { ...createAnimationsrequestedDto, customer };
+    console.log(
+      '---SERVICE ANIMATIONSREQUESTED // SERVICE --> createAnimationsrequestedDto --- : ',
+      createAnimationsrequestedDto,
+    );
+    console.log(
+      '---SERVICE ANIMATIONSREQUESTED // SERVICE --> userQuiSoumetLaRequete --- : ',
+      userQuiSoumetLaRequete,
+    );
     return await this.animationrequestedRepository.save(reqAvecCustomer);
   }
 
   async findAll(): Promise<Animationsrequested[]> {
+    console.log(
+      '---SERVICE ANIMATIONSREQUESTED // SERVICE --> Animationsrequested[] --- : ',
+      Animationsrequested,
+    );
     return await this.animationrequestedRepository.find();
   }
 
@@ -33,21 +45,15 @@ export class AnimationsrequestedService {
     });
     if (!animationfound) {
       throw new NotFoundException(
-        `Déolé, nous n'avons pas trouvé d'animation demandée avec l'id ${idValue}.`,
+        `Désolé, nous n'avons pas trouvé d'animation demandée avec l'id ${idValue}.`,
       );
     }
+    console.log(
+      '---SERVICE ANIMATIONSREQUESTED // SERVICE --> animationfound --- : ',
+      animationfound,
+    );
     return animationfound;
   }
-
-  // async update(
-  //   idValue: string,
-  //   updateAnimationsrequestedDto: UpdateAnimationsrequestedDto,
-  // ): Promise<Animationsrequested> {
-  //   const upAnimation = await this.findOne(idValue);
-  //   upAnimation.kind_of_animation =
-  //     updateAnimationsrequestedDto.kind_of_animation;
-  //   return await this.animationrequestedRepository.save(upAnimation);
-  // }
 
   async update(
     idValue: string,
@@ -61,6 +67,10 @@ export class AnimationsrequestedService {
       updateAnimationsrequestedDto.number_of_participants;
     upAnimation.for_who = updateAnimationsrequestedDto.for_who;
     upAnimation.question = updateAnimationsrequestedDto.question;
+    console.log(
+      '---SERVICE ANIMATIONSREQUESTED // SERVICE --> updateAnimationsrequestedDto --- : ',
+      updateAnimationsrequestedDto,
+    );
     return await this.animationrequestedRepository.save(upAnimation);
   }
 
@@ -69,10 +79,18 @@ export class AnimationsrequestedService {
       id: idValue,
     });
     if (Result.affected === 0) {
+      console.log(
+        '---SERVICE ANIMATIONSREQUESTED // SERVICE --> Suppression animation impossible car non trouvée--- : ',
+        Result,
+      );
       throw new NotFoundException(
-        `Suppreesion impossible, car il n'y a pas d'animation demandée avec l'id ${idValue}`,
+        `Suppression impossible, car il n'y a pas d'animation demandée avec l'id ${idValue}`,
       );
     }
+    console.log(
+      '---SERVICE ANIMATIONSREQUESTED // SERVICE --> Suppression animation OK --- : ',
+      Result,
+    );
     return `Bravo: La catégorie avec l'id ${idValue} a bien été supprimée...`;
   }
 }

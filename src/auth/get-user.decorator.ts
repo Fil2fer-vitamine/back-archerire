@@ -4,7 +4,10 @@ import { Customer } from 'src/customers/entities/customer.entity';
 export const GetCustomer = createParamDecorator(
   (_data, ctx: ExecutionContext): Customer => {
     const req = ctx.switchToHttp().getRequest();
-    console.log(req.user.id, 'Req.user.id dans le get user decorator');
+    console.log(
+      '---AUTH get-user.decorator.ts --- Req.user.id dans le get user decorator :',
+      req.user.id,
+    );
     return req.user;
   },
 );

@@ -20,13 +20,13 @@ import { UpdateAnimationsrequestedDto } from './dto/update-animationsrequested.d
 // le useGuard "AuthGuard" permet de donner acces aux requetes uniquement au personnes connecté !
 // et également d'utiliser le GetCustomer
 @UseGuards(AuthGuard())
-@Controller('animationsrequested')
+@Controller('animationsrequested') // http://localhost:8080/api/animationsrequested
 export class AnimationsrequestedController {
   constructor(
     private readonly animationsrequestedService: AnimationsrequestedService,
   ) {}
 
-  @Post()
+  @Post() // http://localhost:8080/api/animationsrequested
   create(
     @Body() createAnimationsrequestedDto: CreateAnimationsrequestedDto,
     @GetCustomer() customer: Customer,
@@ -38,17 +38,17 @@ export class AnimationsrequestedController {
     );
   }
 
-  @Get()
+  @Get() // http://localhost:8080/api/animationsrequested
   findAll() {
     return this.animationsrequestedService.findAll();
   }
 
-  @Get(':id')
+  @Get(':id') // http://localhost:8080/api/animationsrequested
   findOne(@Param('id') id: string) {
     return this.animationsrequestedService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch(':id') // http://localhost:8080/api/animationsrequested
   update(
     @Param('id') idValue: string,
     @Body() updateAnimationsrequestedDto: UpdateAnimationsrequestedDto,
@@ -70,7 +70,7 @@ export class AnimationsrequestedController {
     );
   }
 
-  @Delete(':id')
+  @Delete(':id') // http://localhost:8080/api/animationsrequested
   remove(@Param('id') id: string) {
     return this.animationsrequestedService.remove(id);
   }

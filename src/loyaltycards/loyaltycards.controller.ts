@@ -15,23 +15,23 @@ import { CreateLoyaltycardDto } from './dto/create-loyaltycard.dto';
 import { UpdateLoyaltycardDto } from './dto/update-loyaltycard.dto';
 import { AuthGuard } from '@nestjs/passport';
 
-@Controller('loyaltycards')
+@Controller('loyaltycards') // http://localhost:8080/api/loyaltycards
 export class LoyaltycardsController {
   constructor(private readonly loyaltycardsService: LoyaltycardsService) {}
 
-  @Post()
+  @Post() // http://localhost:8080/api/loyaltycards
   create(@Body() createLoyaltycardsDto: CreateLoyaltycardDto) {
     console.log('controller dto :', createLoyaltycardsDto);
     return this.loyaltycardsService.create(createLoyaltycardsDto);
   }
 
-  @Get()
+  @Get() // http://localhost:8080/api/loyaltycards
   findAll() {
     console.log('find all');
     return this.loyaltycardsService.findAllLoyaltycards();
   }
 
-  @Get(':id')
+  @Get(':id') // http://localhost:8080/api/loyaltycards
   findOne(@Param('id') id: string) {
     return this.loyaltycardsService.findOneLoyaltycards(id);
   }
@@ -43,7 +43,7 @@ export class LoyaltycardsController {
   //   return this.loyaltycardsService.create(createLoyaltycardDto);
   // }
 
-  @Patch(':id')
+  @Patch(':id') // http://localhost:8080/api/loyaltycards
   update(
     @Param('id') id: string,
     @Body() updateLoyaltycardDto: UpdateLoyaltycardDto,
@@ -57,7 +57,7 @@ export class LoyaltycardsController {
     return this.loyaltycardsService.patch(id, updateLoyaltycardDto);
   }
 
-  @Delete(':id')
+  @Delete(':id') // http://localhost:8080/api/loyaltycards
   remove(@Param('id') id: string) {
     return this.loyaltycardsService.remove(id);
   }
