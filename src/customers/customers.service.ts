@@ -62,7 +62,7 @@ export class CustomersService {
       phone,
       email,
     } = updateCustomerDto;
-    console.log('COUCOU -> ', updateCustomerDto);
+    console.log('updateCustomerDto : champ mouvementé. -> ', updateCustomerDto);
     try {
       if (updateCustomerDto.password) {
         const salt = await bcrypt.genSalt();

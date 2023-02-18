@@ -39,7 +39,7 @@ export class CustomersController {
     @GetCustomer() customer: Customer,
   ): Promise<Customer> {
     console.log(
-      '--------------CONTROLLER updateCustomerDto - patch() -----------------',
+      '---CONTROLLER updateCustomerDto - patch() - Champ à mouvementer ---',
       updateCustomerDto,
     );
     return this.customersService.updateCustomer(
