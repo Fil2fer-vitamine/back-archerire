@@ -17,7 +17,7 @@ async function bootstrap() {
   // Depuis l'utilisation de "await", nous utilisons un écouteur sur le port 8080.
   await app.listen(8080);
   console.log(
-    "---Niveau 'main.ts' - L'API est lancée ... Bonne journée à vous...",
+    "---Niveau 'main.ts' - L'API est lancée ... A ce stade, il n'y a pas d'erreur - Bonne journée à vous...",
   );
 }
 
