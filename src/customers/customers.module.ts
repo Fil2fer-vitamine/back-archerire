@@ -4,6 +4,9 @@ import { CustomersController } from './customers.controller';
 import { Customer } from './entities/customer.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'src/auth/auth.module';
+import { config } from 'dotenv';
+
+config({ path: '.env' });
 
 @Module({
   imports: [AuthModule, TypeOrmModule.forFeature([Customer])],

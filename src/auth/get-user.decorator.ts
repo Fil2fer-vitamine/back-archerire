@@ -12,4 +12,5 @@ export const GetCustomer = createParamDecorator(
   },
 );
 
-// On récupère des informations sur le Customer à partir de la requête HTTP : ces informations sont passées comme argument à la méthode getRequest() du controller.
+// On récupère des informations sur le Customer à partir de la requête HTTP :
+// ces informations sont passées comme argument à la méthode getRequest() du controller.

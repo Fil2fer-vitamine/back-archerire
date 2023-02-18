@@ -6,6 +6,9 @@ import { Customer } from 'src/customers/entities/customer.entity';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { config } from 'dotenv';
+
+config({ path: '.env' });
 
 @Module({
   imports: [
@@ -13,7 +16,8 @@ import { JwtStrategy } from './jwt.strategy';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       signOptions: { expiresIn: '8h' },
-      secret: 'Passe-Secret',
+      secret: process.env.JWT_SECRET,
+      // Utilisation de la variable d'environnement : protection du mot de passe quand mise sur GITHUB.
     }),
   ],
   controllers: [AuthController],
