@@ -10,6 +10,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // Toutes les URL de l'application débuteront par "api".
   app.setGlobalPrefix('api');
+  // Access to XMLHttpRequest at 'http://localhost:8080/api/auth/register' from origin 'http://localhost:3000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+  // CORS (Cross-Origin Resource Sharing) quand on travaille sur plusieurs ports (port 3000 pour le frontend, 8080 pour le backend et 5432 pour la base de données).
+  app.enableCors();
 
   /**
    * Les Pipes permettent de valider, de transformer ou de filtrer des DONNEES entrantes ou sortantes dans une requête
