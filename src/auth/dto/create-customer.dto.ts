@@ -9,9 +9,9 @@ import {
   MinLength,
 } from '@nestjs/class-validator';
 
-  /**
-   * Ici : Formatage des entrées fournies par l'utilisateur
-   */
+/**
+ * Ici : Formatage des entrées fournies par l'utilisateur
+ */
 
 export class CreateCustomerDto {
   //------------ NAME - Formatage par le biais de class-validator---------------
@@ -29,7 +29,7 @@ export class CreateCustomerDto {
   })
   @Matches(/^[A-Z]*(-[A-Z]+)*$/, {
     message:
-      "CHAMP 'NAME' IMPACTE : Votre prénom se doit d'être saisi en lettres majuscules (acceptation d'un ou plusieurs tirets - Exemple : ANDRE-DE-LA-TOUR)",
+      "CHAMP 'NAME' IMPACTE : Votre nom se doit d'être saisi en lettres majuscules (acceptation d'un ou plusieurs tirets - Exemple : ANDRE-DE-LA-TOUR)",
   })
   name: string;
 
