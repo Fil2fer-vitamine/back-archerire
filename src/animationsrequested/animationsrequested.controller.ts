@@ -13,13 +13,14 @@ import { HttpException } from '@nestjs/common/exceptions';
 import { AuthGuard } from '@nestjs/passport';
 import { GetCustomer } from 'src/auth/get-user.decorator';
 import { Customer } from 'src/customers/entities/customer.entity';
+
 import { AnimationsrequestedService } from './animationsrequested.service';
 import { CreateAnimationsrequestedDto } from './dto/create-animationsrequested.dto';
 import { UpdateAnimationsrequestedDto } from './dto/update-animationsrequested.dto';
 
 // le useGuard "AuthGuard" permet de donner acces aux requetes uniquement au personnes connecté !
 // et également d'utiliser le GetCustomer
-@UseGuards(AuthGuard())
+// @UseGuards(AuthGuard())
 @Controller('animationsrequested') // http://localhost:8080/api/animationsrequested
 export class AnimationsrequestedController {
   constructor(
@@ -27,22 +28,8 @@ export class AnimationsrequestedController {
   ) {}
 
   @Post() // http://localhost:8080/api/animationsrequested
-  create(
-    @Body() createAnimationsrequestedDto: CreateAnimationsrequestedDto,
-    @GetCustomer() customer: Customer,
-  ) {
-console.log(
-  '---SERVICE ANIMATIONSREQUESTED // CONTROLLER --> createAnimationsrequestedDto --- : ',
-  createAnimationsrequestedDto,
-);
-  //   console.log(
-  //   '---SERVICE ANIMATIONSREQUESTED // CONTROLLER --> customer --- : ',
-  //   customer,
-  // );
-    return this.animationsrequestedService.create(
-      createAnimationsrequestedDto,
-      customer,
-    );
+  create(@Body() createAnimationsrequestedDto: CreateAnimationsrequestedDto) {
+    return this.animationsrequestedService.create(createAnimationsrequestedDto);
   }
 
   @Get() // http://localhost:8080/api/animationsrequested
@@ -50,12 +37,12 @@ console.log(
     return this.animationsrequestedService.findAll();
   }
 
-  @Get(':id') // http://localhost:8080/api/animationsrequested
+  @Get(':id') // http://localhost:8080/api/animationsrequested/fe7a0127-dce3-40ac-b1bf-e04df882673f
   findOne(@Param('id') id: string) {
     return this.animationsrequestedService.findOne(id);
   }
 
-  @Patch(':id') // http://localhost:8080/api/animationsrequested
+  @Patch(':id') // http://localhost:8080/api/animationsrequested/fe7a0127-dce3-40ac-b1bf-e04df882673f
   update(
     @Param('id') idValue: string,
     @Body() updateAnimationsrequestedDto: UpdateAnimationsrequestedDto,
@@ -67,9 +54,12 @@ console.log(
       !updateAnimationsrequestedDto.kind_of_animation &&
       !updateAnimationsrequestedDto.number_of_participants &&
       !updateAnimationsrequestedDto.for_who &&
-      !updateAnimationsrequestedDto.question
+      !updateAnimationsrequestedDto.question &&
+      !updateAnimationsrequestedDto.location // Il y a un problème avec l'association de cette table
     )
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+
+    console.log('updateAnimationsrequestedDto', updateAnimationsrequestedDto);
 
     return this.animationsrequestedService.update(
       idValue,

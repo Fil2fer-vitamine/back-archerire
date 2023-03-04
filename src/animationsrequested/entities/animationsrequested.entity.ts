@@ -24,7 +24,7 @@ export class Animationsrequested {
   @Column({ nullable: true })
   question: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   decision_admin: boolean;
 
   @Column({ nullable: true })
@@ -35,7 +35,7 @@ export class Animationsrequested {
 
   @ManyToOne(() => Customer, (customers) => customers.animationsrequested, {
     onDelete: 'CASCADE',
-    nullable: false,
+    nullable: true,
     eager: false,
   })
   customer: Customer;
@@ -43,6 +43,7 @@ export class Animationsrequested {
   @ManyToOne(() => Location, (locations) => locations.animationsrequested, {
     onDelete: 'CASCADE',
     nullable: false,
+    eager: true,
   })
   location: Location;
 }

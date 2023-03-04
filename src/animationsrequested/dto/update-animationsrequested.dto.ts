@@ -5,15 +5,16 @@ import {
   MinLength,
   MaxLength,
   IsOptional,
+  IsDateString,
 } from '@nestjs/class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateAnimationsrequestedDto } from './create-animationsrequested.dto';
+import { Location } from 'src/locations/entities/location.entity';
+import { Customer } from 'src/customers/entities/customer.entity';
 
-export class UpdateAnimationsrequestedDto extends PartialType(
-  CreateAnimationsrequestedDto,
-) {
+export class UpdateAnimationsrequestedDto {
   //--------------------- DATE - Formattage par le biais de class-validator---------------
-  // @IsDate({ message: "La date de l'animation doit être une date valide" })
+   @IsDateString({ message: "La date de l'animation doit être une date valide" })
   // @IsNotEmpty({
   //   message:
   //     "Vous avez demandé à réserver une animation, il nous faudra cependant une date, s'il vous plait.",
@@ -21,7 +22,7 @@ export class UpdateAnimationsrequestedDto extends PartialType(
   date: string;
 
   //------------ KIND_of_ANIMATION - Formattage par le biais de class-validator---------------
-  @IsOptional()
+  //@IsOptional()
   @IsNotEmpty({ message: "Merci de saisir une sorte d'animation." })
   @IsString({
     message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
@@ -29,7 +30,7 @@ export class UpdateAnimationsrequestedDto extends PartialType(
   kind_of_animation: string;
 
   //--------- NUMBER_of_PARTIPANTS - Formattage par le biais de class-validator---------------
-  @IsOptional()
+  //@IsOptional()
   @IsNotEmpty({
     message:
       "Merci de nous indiquer le nombre de participants, s'il vous plait.",
@@ -46,21 +47,21 @@ export class UpdateAnimationsrequestedDto extends PartialType(
   //--------- FOR_WHO - Formattage par le biais de class-validator---------------
 
   @IsOptional()
-  @IsNotEmpty({
-    message:
-      'Qui est concerné par cette demande ? Est-ce des particuliers, une association, une entreprise ou une communauté ?',
-  })
+  // @IsNotEmpty({
+  //   message:
+  //     'Qui est concerné par cette demande ? Est-ce des particuliers, une association, une entreprise ou une communauté ?',
+  // })
   @IsString({
     message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
   })
-  @MinLength(9, {
+  /*@MinLength(9, {
     message:
       'Qui est concerné par cette demande ? Est-ce des particuliers, une association, une entreprise ou une communauté ?',
   })
   @MaxLength(12, {
     message:
       'Qui est concerné par cette demande ? Est-ce des particuliers, une association, une entreprise ou une communauté ?',
-  })
+  })*/
   for_who: string;
 
   //--------- QUESTION - Formattage par le biais de class-validator---------------
@@ -70,6 +71,8 @@ export class UpdateAnimationsrequestedDto extends PartialType(
       'Merci pour votre message. Nous vous répondrons dans de très brefs délais',
   })
   question: string;
+  customer: Customer;
+  location: Location;
 }
 
 // La décision, le commentaire et la négociation sont du ressort de l'administrateur.

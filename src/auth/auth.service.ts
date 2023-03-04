@@ -89,7 +89,7 @@ export class AuthService {
 
     if (customer && (await bcrypt.compare(password, customer.password))) {
       // const payload = { customer };
-      const payload = { email: loginCustomerDto.email, id: customer.id };
+      const payload = { email: loginCustomerDto.email, id: customer.id, postal_code: customer.postal_code };
       const accessToken = await this.jwtService.sign(payload);
       return { accessToken };
     } else {

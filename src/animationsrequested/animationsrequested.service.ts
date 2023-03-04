@@ -16,19 +16,10 @@ export class AnimationsrequestedService {
 
   async create(
     createAnimationsrequestedDto: CreateAnimationsrequestedDto,
-    userQuiSoumetLaRequete: Customer,
-  ) {
-    const customer = { id: userQuiSoumetLaRequete.id };
-    const reqAvecCustomer = { ...createAnimationsrequestedDto, customer };
-    console.log(
-      '---SERVICE ANIMATIONSREQUESTED // SERVICE --> createAnimationsrequestedDto --- : ',
+  ): Promise<Animationsrequested> {
+    return await this.animationrequestedRepository.save(
       createAnimationsrequestedDto,
     );
-    console.log(
-      '---SERVICE ANIMATIONSREQUESTED // SERVICE --> userQuiSoumetLaRequete --- : ',
-      userQuiSoumetLaRequete,
-    );
-    return await this.animationrequestedRepository.save(reqAvecCustomer);
   }
 
   async findAll(): Promise<Animationsrequested[]> {
@@ -67,6 +58,7 @@ export class AnimationsrequestedService {
       updateAnimationsrequestedDto.number_of_participants;
     upAnimation.for_who = updateAnimationsrequestedDto.for_who;
     upAnimation.question = updateAnimationsrequestedDto.question;
+    upAnimation.location = updateAnimationsrequestedDto.location;
     console.log(
       '---SERVICE ANIMATIONSREQUESTED // SERVICE --> updateAnimationsrequestedDto --- : ',
       updateAnimationsrequestedDto,
