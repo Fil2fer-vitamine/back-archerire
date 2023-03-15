@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Header,
 } from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';
@@ -20,7 +21,7 @@ import { UpdateAnimationsrequestedDto } from './dto/update-animationsrequested.d
 
 // le useGuard "AuthGuard" permet de donner acces aux requetes uniquement au personnes connecté !
 // et également d'utiliser le GetCustomer
-// @UseGuards(AuthGuard())
+@UseGuards(AuthGuard())
 @Controller('animationsrequested') // http://localhost:8080/api/animationsrequested
 export class AnimationsrequestedController {
   constructor(
@@ -28,13 +29,20 @@ export class AnimationsrequestedController {
   ) {}
 
   @Post() // http://localhost:8080/api/animationsrequested
-  create(@Body() createAnimationsrequestedDto: CreateAnimationsrequestedDto) {
-    return this.animationsrequestedService.create(createAnimationsrequestedDto);
+  create(
+    @Body() createAnimationsrequestedDto: CreateAnimationsrequestedDto,
+    @GetCustomer() customer: Customer,
+  ) {
+    return this.animationsrequestedService.create(
+      createAnimationsrequestedDto,
+      customer,
+    );
   }
 
   @Get() // http://localhost:8080/api/animationsrequested
-  findAll() {
-    return this.animationsrequestedService.findAll();
+  findAll(@GetCustomer() customer: Customer) {
+    console.log("Données 'customer' :", customer);    // customer passant la requête //
+    return this.animationsrequestedService.findAll(customer);
   }
 
   @Get(':id') // http://localhost:8080/api/animationsrequested/fe7a0127-dce3-40ac-b1bf-e04df882673f

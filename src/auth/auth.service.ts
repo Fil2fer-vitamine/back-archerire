@@ -52,7 +52,7 @@ export class AuthService {
     try {
       // enregistrement de l'entité user
       const createdCustomer = await this.customerRepository.save(customer);
-      delete createdCustomer.password; // soéli
+      delete createdCustomer.password;
       console.log(
         '---SERVICE AUTH // SERVICE --> createdCustomer --- : ',
         createdCustomer,
@@ -82,10 +82,13 @@ export class AuthService {
       customer,
     );
     console.log(
-      '---SERVICE AUTH // SERVICE --> email et password--- : ',
-      email,
-      password,
+      '---SERVICE AUTH // SERVICE --> email --- : ',
+      email,      
     );
+    // console.log(                                             Commentaire désactivé - il n'avait que pour seul but de faire des tests - test OK.
+    //   '---SERVICE AUTH // SERVICE --> password --- : ',
+    //   password,
+    // );
 
     if (customer && (await bcrypt.compare(password, customer.password))) {
       // const payload = { customer };

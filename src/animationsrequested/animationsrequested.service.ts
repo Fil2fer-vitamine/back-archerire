@@ -16,18 +16,26 @@ export class AnimationsrequestedService {
 
   async create(
     createAnimationsrequestedDto: CreateAnimationsrequestedDto,
+    customer: Customer,
   ): Promise<Animationsrequested> {
+    const animationRequestedByCustomer =
+      this.animationrequestedRepository.create({
+        ...createAnimationsrequestedDto,
+        customer: customer,
+      });
     return await this.animationrequestedRepository.save(
-      createAnimationsrequestedDto,
+      animationRequestedByCustomer,
     );
   }
 
-  async findAll(): Promise<Animationsrequested[]> {
+  async findAll(customerValue: Customer): Promise<Animationsrequested[]> {
     console.log(
       '---SERVICE ANIMATIONSREQUESTED // SERVICE --> Animationsrequested[] --- : ',
       Animationsrequested,
     );
-    return await this.animationrequestedRepository.find();
+    return await this.animationrequestedRepository.findBy({
+      customer: customerValue,
+    });
   }
 
   async findOne(idValue: string): Promise<Animationsrequested> {
