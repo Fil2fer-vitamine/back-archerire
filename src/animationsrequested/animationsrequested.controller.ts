@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   UseGuards,
-  Header,
 } from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';

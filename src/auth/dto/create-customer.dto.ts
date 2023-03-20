@@ -113,7 +113,7 @@ export class CreateCustomerDto {
     message:
       "CHAMP 'PHONE' IMPACTE : Merci de saisir votre numéro de téléphone, s'il vous plait.",
   })
-  @MinLength(10, {
+  @Length(10, 10, {
     message:
       "CHAMP 'PHONE' IMPACTE : Votre numéro de téléphone ne doit être composé que de dix chiffres.",
   })

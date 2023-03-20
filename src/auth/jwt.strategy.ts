@@ -12,7 +12,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private customersRepository: Repository<Customer>,
   ) {
     super({
-      secretOrKey: 'Passe-Secret',
+      secretOrKey: process.env.JWT_SECRET,
+      // Utilisation de la variable d'environnement : protection du mot de passe quand mise sur GITHUB.             'Passe-Secret',
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }
@@ -54,6 +55,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
  * L'identification de l'Utilisateur se fait par l'intermédiaire de son EMAIL car plusieurs personnes peuvent s'appeler par
  * un nom de famille - puis par un prénom (Exemple : Il y a trois M. ANDRE Philippe rien que dans le Groupe Public Ferroviaire).
  *
- * L'information provient de l'exécution du fichier 'auth.module.ts' donnant les instruction pour le temps de 
+ * L'information provient de l'exécution du fichier 'auth.module.ts' donnant les instruction pour le temps de
  * validité et la clé secrète qu'il faudra mettre dans le dossier .env .
  * */

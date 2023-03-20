@@ -41,9 +41,9 @@ export class Animationsrequested {
   customer: Customer;
 
   @ManyToOne(() => Location, (locations) => locations.animationsrequested, {
-    onDelete: 'CASCADE',
-    nullable: false,
-    eager: true,
+    onDelete: 'CASCADE', // indique à TypeORM de supprimer tous les enregistrements liés de manière récursive lorsque l'entité parente (Location) est supprimée.
+    nullable: false, // indique que la relation est obligatoire et que chaque Animation doit avoir une Location associée.
+    eager: true, // indique de charger automatiquement l'entité parente (Location) lorsqu'une animationsrequested est chargée.
   })
   location: Location;
 }

@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NotFoundError } from 'rxjs';
 import { Customer } from 'src/customers/entities/customer.entity';
 import { Repository } from 'typeorm';
 import { CreateAnimationsrequestedDto } from './dto/create-animationsrequested.dto';

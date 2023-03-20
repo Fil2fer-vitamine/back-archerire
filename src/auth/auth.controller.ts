@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { LoginCustomerDto } from './dto/login-customer.dto';
@@ -20,7 +12,7 @@ export class AuthController {
     console.log(
       '--------ENTITIES AUTH // CONTROLLER --> createCustomerDto : ',
       createCustomerDto,
-    );
+    ); // Mot de passe en clair ---> point de vue pédagogique.
     return this.authService.registerCustomer(createCustomerDto);
   }
   @Post('login') // http://localhost:8080/api/auth/login/

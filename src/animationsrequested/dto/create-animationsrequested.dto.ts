@@ -1,9 +1,5 @@
 import {
-  MinLength,
-  MaxLength,
-  IsDate,
   IsNotEmpty,
-  IsBoolean,
   IsString,
   IsDateString,
   Min,
@@ -13,7 +9,7 @@ import { Customer } from 'src/customers/entities/customer.entity';
 import { Location } from 'src/locations/entities/location.entity';
 
 export class CreateAnimationsrequestedDto {
-  //--------------------- DATE - Formattage par le biais de class-validator---------------
+  //--------------------- DATE - Formatage par le biais de class-validator---------------
   @IsDateString({ message: "La date de l'animation doit être une date valide" })
   @IsNotEmpty({
     message:
@@ -21,7 +17,7 @@ export class CreateAnimationsrequestedDto {
   })
   date: string;
 
-  //------------ KIND_of_ANIMATION - Formattage par le biais de class-validator---------------
+  //------------ KIND_of_ANIMATION - Formatage par le biais de class-validator---------------
   @IsNotEmpty({ message: "Merci de saisir une sorte d'animation." })
   @IsString({
     message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
@@ -42,7 +38,7 @@ export class CreateAnimationsrequestedDto {
   })
   number_of_participants: number;
 
-  //--------- FOR_WHO - Formattage par le biais de class-validator---------------
+  //--------- FOR_WHO - Formatage par le biais de class-validator---------------
   @IsNotEmpty({
     message:
       'Qui est concerné par cette demande ? Est-ce des particuliers, une association, une entreprise ou une communauté ?',
@@ -50,14 +46,7 @@ export class CreateAnimationsrequestedDto {
   @IsString({
     message: "Votre réponse ne devrait comporter qu'une chaine de caractères.",
   })
-  /*@MinLength(9, {
-    message:
-      'Qui est concerné par cette demande ? Est-ce des particuliers, une association, une entreprise ou une communauté ?',
-  })
-  @MaxLength(12, {
-    message:
-      'Qui est concerné par cette demande ? Est-ce des particuliers, une association, une entreprise ou une communauté ?',
-  })*/
+
   for_who: string;
 
   //--------- QUESTION - Formattage par le biais de class-validator---------------

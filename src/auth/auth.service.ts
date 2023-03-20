@@ -56,7 +56,7 @@ export class AuthService {
       console.log(
         '---SERVICE AUTH // SERVICE --> createdCustomer --- : ',
         createdCustomer,
-      );
+      );        // Mot de passe crypté ---> point de vue pédagogique.
       return createdCustomer;
     } catch (error) {
       console.log(
