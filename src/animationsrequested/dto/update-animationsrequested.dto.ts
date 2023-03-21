@@ -5,13 +5,16 @@ import {
   MaxLength,
   IsOptional,
   IsDateString,
+  Min,
+  Max,
 } from '@nestjs/class-validator';
 import { Location } from 'src/locations/entities/location.entity';
 import { Customer } from 'src/customers/entities/customer.entity';
+// import { Min } from 'class-validator';
 
 export class UpdateAnimationsrequestedDto {
   //--------------------- DATE - Formattage par le biais de class-validator---------------
-   @IsDateString({ message: "La date de l'animation doit être une date valide" })
+  @IsDateString({ message: "La date de l'animation doit être une date valide" })
   @IsNotEmpty({
     message:
       "Vous avez demandé à réserver une animation, il nous faudra cependant une date, s'il vous plait.",
@@ -32,10 +35,10 @@ export class UpdateAnimationsrequestedDto {
     message:
       "Merci de nous indiquer le nombre de participants, s'il vous plait.",
   })
-  @MinLength(6, {                
+  @Min(6, {
     message: "Le groupe se doit d'être composé d'au moins six participants.",
   })
-  @MaxLength(12, {
+  @Max(12, {
     message:
       "Le groupe est limité à douze personnes - Merci de contacter (par mail ou téléphone) l'administrateur pour un groupe de participants supérieur à 12 personnes.",
   })
